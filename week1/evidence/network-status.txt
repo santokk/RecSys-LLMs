@@ -1,0 +1,29 @@
+Network status observed during audit (curl, downloaded 2026-09-16):
+
+Stylesheet (exact URL used by page, index.html line 7):
+  URL:  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+  code=200 type=text/css; charset=utf-8 bytes=102025
+  (headers saved in stylesheet-headers.txt; x-cdnjs-cache: HIT, cf-cache-status: BYPASS,
+   access-control-allow-origin: *)
+
+Font files referenced by that stylesheet (base + ../webfonts/):
+  URL:  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2
+  code=200 type=application/octet-stream bytes=150124
+  URL:  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf
+  code=200 type=application/octet-stream bytes=394628
+  URL:  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2
+  code=200 type=application/octet-stream bytes=108020
+  URL:  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2
+  code=200 type=application/octet-stream bytes=24948
+
+Official icon metadata:
+  URL:  https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.4.0/metadata/icons.json
+  code=200 bytes=4262904 (top-level icon entries: 1856)
+
+Browser-observed responses (headless Chrome 147, CDP Network.responseReceived):
+  file:///.../index.html                          status=200 (file)
+  https://cdnjs.cloudflare.com/.../all.min.css    status=200 proto=h2 mime=text/css
+  https://cdnjs.cloudflare.com/.../fa-solid-900.woff2 status=200 proto=h3
+
+No 404 or failed response was observed anywhere. The HTTP 404 hypothesis has no
+observed 404 response and is therefore REJECTED for this environment.

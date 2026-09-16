@@ -1,0 +1,3 @@
+runtime probe via CDP (headless Chrome 147)
+injected icons: 12 | fonts.status: loaded | fa6free900: True
+Pizza | fa-pizza-slice | ::before content="\"\""\nSushi | fa-fish | ::before content="\"\""\nBurger | fa-hamburger | ::before content="\"\""\nSalad | fa-leaf | ::before content="\"\""\nTacos | fa-utensil-spoon | ::before content="\"\""\nRamen | fa-bowl-hot | ::before content="none"\nSandwich | fa-bread-slice | ::before content="\"\""\nPasta | fa-pasta | ::before content="none"\nCurry | fa-mortar-pestle | ::before content="\"\""\nSteak | fa-drumstick-bite | ::before content="\"\""\nSoup | fa-bowl | ::before content="none"\nBBQ | fa-fire | ::before content="\"\""
