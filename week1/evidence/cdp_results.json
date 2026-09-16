@@ -1,0 +1,146 @@
+{
+  "page": "file:///Users/Sanzha.Tokkozhin/Desktop/Projects/RecSys-LLMs/week1/index.html",
+  "network": [
+    {
+      "url": "file:///Users/Sanzha.Tokkozhin/Desktop/Projects/RecSys-LLMs/week1/index.html",
+      "status": 200,
+      "mimeType": "text/html",
+      "protocol": "file"
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+      "status": 200,
+      "mimeType": "text/css",
+      "protocol": "h2"
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+      "status": 200,
+      "mimeType": "application/octet-stream",
+      "protocol": "h3"
+    }
+  ],
+  "font_state": {
+    "status": "loaded"
+  },
+  "fa_icons": [
+    {
+      "name": "Pizza",
+      "class": "fa-pizza-slice",
+      "content": "\"\uf818\""
+    },
+    {
+      "name": "Sushi",
+      "class": "fa-fish",
+      "content": "\"\uf578\""
+    },
+    {
+      "name": "Burger",
+      "class": "fa-hamburger",
+      "content": "\"\uf805\""
+    },
+    {
+      "name": "Salad",
+      "class": "fa-leaf",
+      "content": "\"\uf06c\""
+    },
+    {
+      "name": "Ramen",
+      "class": "fa-bowl-food",
+      "content": "\"\ue4c6\""
+    },
+    {
+      "name": "Sandwich",
+      "class": "fa-bread-slice",
+      "content": "\"\uf7ec\""
+    },
+    {
+      "name": "Pasta",
+      "class": "fa-plate-wheat",
+      "content": "\"\ue55a\""
+    },
+    {
+      "name": "Curry",
+      "class": "fa-mortar-pestle",
+      "content": "\"\uf5a7\""
+    },
+    {
+      "name": "Steak",
+      "class": "fa-cow",
+      "content": "\"\uf6c8\""
+    },
+    {
+      "name": "Soup",
+      "class": "fa-bowl-rice",
+      "content": "\"\ue2eb\""
+    },
+    {
+      "name": "BBQ",
+      "class": "fa-fire",
+      "content": "\"\uf06d\""
+    }
+  ],
+  "taco_emoji": {
+    "found": true,
+    "text": "\ud83c\udf2e",
+    "codePoint": "1f32e",
+    "role": "img",
+    "aria": "Tacos",
+    "box": {
+      "w": 56,
+      "h": 68
+    },
+    "cls": "food-emoji"
+  },
+  "taco_emoji_ok": true,
+  "rendered_box_px": {
+    "fa_pizza": {
+      "w": 64,
+      "h": 64
+    },
+    "taco_emoji": {
+      "w": 56,
+      "h": 68
+    }
+  },
+  "race_timeline": [
+    {
+      "t": 2,
+      "icon": "<i class=\"fas fa-spinner fa-spin\"></i>",
+      "name": "Thinking..."
+    },
+    {
+      "t": 209,
+      "icon": "<i class=\"fas fa-spinner fa-spin\"></i>",
+      "name": "Thinking..."
+    },
+    {
+      "t": 211,
+      "icon": "<i class=\"fas fa-spinner fa-spin\"></i>",
+      "name": "Thinking..."
+    },
+    {
+      "t": 415,
+      "icon": "<i class=\"fas fa-spinner fa-spin\"></i>",
+      "name": "Thinking..."
+    },
+    {
+      "t": 651,
+      "icon": "<i class=\"fas fa-spinner fa-spin\"></i>",
+      "name": "Thinking..."
+    },
+    {
+      "t": 857,
+      "icon": "<i class=\"fas fa-mortar-pestle\"></i>",
+      "name": "Curry"
+    },
+    {
+      "t": 1280,
+      "icon": "<i class=\"fas fa-mortar-pestle\"></i>",
+      "name": "Curry"
+    }
+  ],
+  "first_click_cannot_replace_latest_thinking": true,
+  "final_belongs_to_latest_click": true,
+  "console_errors": []
+}

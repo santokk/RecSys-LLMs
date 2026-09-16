@@ -1,0 +1,40 @@
+Per-icon runtime glyph check (headless Chrome 147, file:// load of week1/index.html,
+FA 6.4.0 free loaded from cdnjs, fonts.status=loaded, fonts.check('900 16px "Font Awesome 6 Free"')=true)
+
+Method: inject <i class="fas fa-XXXX"></i> per menu item into the live document, then
+read getComputedStyle(el,'::before').content. A real glyph resolves to a non-empty
+string; no matching CSS rule yields content:none (nothing renders).
+
+Food       Class                  ::before content (object)     Glyph rule?
+Pizza      fa-pizza-slice         content="\f818"               YES
+Sushi      fa-fish                content="\f578"               YES
+Burger     fa-hamburger           content="\f805"               YES
+Salad      fa-leaf                content="\f06c"               YES
+Tacos      fa-utensil-spoon       content="\f2e5"               YES
+Ramen      fa-bowl-hot            content=none                  NO (missing selector)
+Sandwich   fa-bread-slice         content="\f7ec"               YES
+Pasta      fa-pasta               content=none                  NO (missing selector)
+Curry      fa-mortar-pestle       content="\f5a7"               YES
+Steak      fa-drumstick-bite      content="\f6d7"               YES
+Soup       fa-bowl                content=none                  NO (missing selector)
+BBQ        fa-fire                content="\f06d"               YES
+
+Static confirmation (exact CSS selector scan of the downloaded all.min.css, 102025 bytes,
+the same file the page loads):
+  .fa-pizza-slice:before{content:"\f818"}                     present
+  .fa-fish:before{content:"\f578"}                            present
+  .fa-burger:before,.fa-hamburger:before{content:"\f805"}     present (comma-alias group)
+  .fa-leaf:before{content:"\f06c"}                            present
+  .fa-spoon:before,.fa-utensil-spoon:before{content:"\f2e5"}  present (comma-alias group)
+  .fa-bowl-hot                                                 ABSENT — no rule anywhere
+  .fa-bread-slice:before{content:"\f7ec"}                      present
+  .fa-pasta                                                    ABSENT — only substring of .fa-pastafarianism
+  .fa-mortar-pestle:before{content:"\f5a7"}                    present
+  .fa-drumstick-bite:before{content:"\f6d7"}                   present
+  .fa-bowl                                                     ABSENT — only substrings of fa-bowl-food / fa-bowl-rice / fa-bowling-ball
+  .fa-fire:before{content:"\f06d"}                             present
+
+Official metadata (FortAwesome/Font-Awesome 6.4.0 metadata/icons.json, 1856 entries):
+  no entry "bowl-hot", no entry "pasta", no entry "bowl" under those exact keys.
+  The free-solid bowl icons that DO exist in 6.4.0 are "bowl-food" and "bowl-rice".
+  All other 9 menu classes are free-solid in 6.4.0.
