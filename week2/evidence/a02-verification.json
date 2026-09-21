@@ -1,0 +1,519 @@
+{
+  "passed": 32,
+  "failed": 0,
+  "total": 32,
+  "tolerance": 1e-12,
+  "checks": [
+    {
+      "name": "1.1 catalog has exactly 1682 movies",
+      "pass": true,
+      "detail": "movies.length=1682"
+    },
+    {
+      "name": "1.2 catalog has exactly 100000 ratings",
+      "pass": true,
+      "detail": "ratings.length=100000"
+    },
+    {
+      "name": "1.3 every movie vector has length 18",
+      "pass": true,
+      "detail": "badVectorLengths=0"
+    },
+    {
+      "name": "1.4 vector entries are all 0/1 and finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1.5 genreNames aligned to official field order",
+      "pass": true,
+      "detail": "[\"Action\",\"Adventure\",\"Animation\",\"Children's\",\"Comedy\",\"Crime\",\"Documentary\",\"Drama\",\"Fantasy\",\"Film-Noir\",\"Horror\",\"Musical\",\"Mystery\",\"Romance\",\"Sci-Fi\",\"Thriller\",\"War\",\"Western\"]"
+    },
+    {
+      "name": "1.6 Toy Story (id 1) parsing sanity",
+      "pass": true,
+      "detail": "{\"id\":1,\"title\":\"Toy Story (1995)\",\"vector\":[0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],\"genres\":[\"Animation\",\"Children's\",\"Comedy\"],\"ratingCount\":452}"
+    },
+    {
+      "name": "1.7 Western flag sanity (Unforgiven id 203)",
+      "pass": true,
+      "detail": "Unforgiven (1992) vector=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]"
+    },
+    {
+      "name": "1.8 unknown-only / zero-vector movies are exactly 267 and 1373",
+      "pass": true,
+      "detail": "[267,1373]"
+    },
+    {
+      "name": "2.1 dot product Toy Story . Aladdin = 3",
+      "pass": true,
+      "detail": "dot=3"
+    },
+    {
+      "name": "2.2 norms sqrt(3) and 2",
+      "pass": true,
+      "detail": "nA=1.7320508075688772 nB=2"
+    },
+    {
+      "name": "2.3 manual cosine agrees with app within 1e-12",
+      "pass": true,
+      "detail": "manual=0.8660254037844387 app=0.8660254037844387"
+    },
+    {
+      "name": "2.4 cosine symmetry cosine(A,B)==cosine(B,A)",
+      "pass": true,
+      "detail": "AB=0.8660254037844387 BA=0.8660254037844387"
+    },
+    {
+      "name": "2.5 cosine(A,A) is exactly 1 (non-zero vector)",
+      "pass": true,
+      "detail": "cos(A,A)=1"
+    },
+    {
+      "name": "2.6 cosine(A,A) within 1e-12 of 1",
+      "pass": true,
+      "detail": "cos(A,A)=1"
+    },
+    {
+      "name": "3.1 item-to-item returns exactly 5 unique ids",
+      "pass": true,
+      "detail": "[422,95,1219,225,261]"
+    },
+    {
+      "name": "3.2 profile-based returns exactly 5 unique ids",
+      "pass": true,
+      "detail": "[422,8,408,270,337]"
+    },
+    {
+      "name": "3.3 no watched movie in either Top-5",
+      "pass": true,
+      "detail": "i2i=[422,95,1219,225,261] prof=[422,8,408,270,337]"
+    },
+    {
+      "name": "3.8 no watched canonical title in either Top-5",
+      "pass": true,
+      "detail": "i2i titles=[\"Aladdin and the King of Thieves (1996)\",\"Aladdin (1992)\",\"Goofy Movie, A (1995)\",\"101 Dalmatians (1996)\",\"Air Bud (1997)\"] prof titles=[\"Aladdin and the King of Thieves (1996)\",\"Babe (1995)\",\"Close Shave, A (1995)\",\"Gattaca (1997)\",\"House of Yes, The (1997)\"]"
+    },
+    {
+      "name": "3.4 all candidate scores finite",
+      "pass": true,
+      "detail": "{\"itemToItem\":{\"count\":1678,\"min\":0,\"max\":1},\"profile\":{\"count\":1678,\"min\":0,\"max\":0.6546536707079771}}"
+    },
+    {
+      "name": "3.5 all candidate scores within [0, 1]",
+      "pass": true,
+      "detail": "{\"itemToItem\":{\"count\":1678,\"min\":0,\"max\":1},\"profile\":{\"count\":1678,\"min\":0,\"max\":0.6546536707079771}}"
+    },
+    {
+      "name": "3.6 all returned scores within [0, 1]",
+      "pass": true,
+      "detail": "[1,0.8660254037844387,0.8660254037844387,0.8164965809277259,0.8164965809277259,0.6546536707079771,0.6546536707079771,0.6546536707079771,0.6546536707079771,0.6546536707079771]"
+    },
+    {
+      "name": "3.7 deterministic: identical ordering on repeat",
+      "pass": true,
+      "detail": "equalRun=true"
+    },
+    {
+      "name": "3.9 duplicate-title regression: watched 670 excludes same-title 573 by canonical title",
+      "pass": true,
+      "detail": "670=Body Snatchers (1993) 573=Body Snatchers (1993) canonical=body snatchers (1993)"
+    },
+    {
+      "name": "4.1 profile vector is the element-wise mean of exactly 3 vectors",
+      "pass": true,
+      "detail": "len=18"
+    },
+    {
+      "name": "5.1 overlap count recorded",
+      "pass": true,
+      "detail": "overlap=1"
+    },
+    {
+      "name": "6.1 equal dot product but different cosine (normalization removes length advantage)",
+      "pass": true,
+      "detail": "{\"sameDot\":3,\"id422\":{\"title\":\"Aladdin and the King of Thieves (1996)\",\"dot\":3,\"cosine\":1,\"norm\":1.7320508075688772},\"id95\":{\"title\":\"Aladdin (1992)\",\"dot\":3,\"cosine\":0.8660254037844387,\"norm\":2}}"
+    },
+    {
+      "name": "6.2 popularity threshold is the documented top-20% boundary",
+      "pass": true,
+      "detail": "{\"percentile\":80,\"headCount\":337,\"longTailCount\":1345,\"headCutoffCount\":100}"
+    },
+    {
+      "name": "8.1 vector-length guard: all 1682 vectors length 18",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "8.2 zero-norm guard: cosine with unknown-only movie returns 0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "8.3 watched-item filter: 3 watched ids excluded from BOTH lists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "8.5 watched-title filter: canonical titles of the 3 watched movies excluded from BOTH lists",
+      "pass": true,
+      "detail": "watched titles=[\"toy story (1995)\",\"promesse, la (1996)\",\"body snatchers (1993)\"]"
+    },
+    {
+      "name": "8.4 deterministic sort: score->title->id comparator reproducible",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "data": {
+    "movieCount": 1682,
+    "ratingCount": 100000,
+    "toyStory": {
+      "id": 1,
+      "title": "Toy Story (1995)",
+      "vector": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "genres": [
+        "Animation",
+        "Children's",
+        "Comedy"
+      ],
+      "ratingCount": 452
+    },
+    "zeroVectorMovies": {
+      "ids": [
+        267,
+        1373
+      ],
+      "count": 2
+    },
+    "formulaPair": {
+      "a": {
+        "id": 1,
+        "title": "Toy Story (1995)",
+        "vector": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "b": {
+        "id": 95,
+        "title": "Aladdin (1992)",
+        "vector": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "formula": {
+      "dot": 3,
+      "normA": 1.7320508075688772,
+      "normB": 2,
+      "manualCosine": 0.8660254037844387,
+      "appCosine": 0.8660254037844387
+    },
+    "selfCosine": 1,
+    "watched": [
+      {
+        "id": 1,
+        "title": "Toy Story (1995)",
+        "genres": [
+          "Animation",
+          "Children's",
+          "Comedy"
+        ],
+        "ratingCount": 452,
+        "klass": "head"
+      },
+      {
+        "id": 296,
+        "title": "Promesse, La (1996)",
+        "genres": [
+          "Drama"
+        ],
+        "ratingCount": 6,
+        "klass": "long-tail"
+      },
+      {
+        "id": 670,
+        "title": "Body Snatchers (1993)",
+        "genres": [
+          "Horror",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "ratingCount": 36,
+        "klass": "long-tail"
+      }
+    ],
+    "watchedCanonicalTitles": [
+      "toy story (1995)",
+      "promesse, la (1996)",
+      "body snatchers (1993)"
+    ],
+    "itemToItem": [
+      {
+        "id": 422,
+        "title": "Aladdin and the King of Thieves (1996)",
+        "score": 1,
+        "genres": [
+          "Animation",
+          "Children's",
+          "Comedy"
+        ],
+        "ratingCount": 26,
+        "klass": "long-tail"
+      },
+      {
+        "id": 95,
+        "title": "Aladdin (1992)",
+        "score": 0.8660254037844387,
+        "genres": [
+          "Animation",
+          "Children's",
+          "Comedy",
+          "Musical"
+        ],
+        "ratingCount": 219,
+        "klass": "head"
+      },
+      {
+        "id": 1219,
+        "title": "Goofy Movie, A (1995)",
+        "score": 0.8660254037844387,
+        "genres": [
+          "Animation",
+          "Children's",
+          "Comedy",
+          "Romance"
+        ],
+        "ratingCount": 20,
+        "klass": "long-tail"
+      },
+      {
+        "id": 225,
+        "title": "101 Dalmatians (1996)",
+        "score": 0.8164965809277259,
+        "genres": [
+          "Children's",
+          "Comedy"
+        ],
+        "ratingCount": 109,
+        "klass": "head"
+      },
+      {
+        "id": 261,
+        "title": "Air Bud (1997)",
+        "score": 0.8164965809277259,
+        "genres": [
+          "Children's",
+          "Comedy"
+        ],
+        "ratingCount": 43,
+        "klass": "long-tail"
+      }
+    ],
+    "profileBased": [
+      {
+        "id": 422,
+        "title": "Aladdin and the King of Thieves (1996)",
+        "score": 0.6546536707079771,
+        "genres": [
+          "Animation",
+          "Children's",
+          "Comedy"
+        ],
+        "ratingCount": 26,
+        "klass": "long-tail"
+      },
+      {
+        "id": 8,
+        "title": "Babe (1995)",
+        "score": 0.6546536707079771,
+        "genres": [
+          "Children's",
+          "Comedy",
+          "Drama"
+        ],
+        "ratingCount": 219,
+        "klass": "head"
+      },
+      {
+        "id": 408,
+        "title": "Close Shave, A (1995)",
+        "score": 0.6546536707079771,
+        "genres": [
+          "Animation",
+          "Comedy",
+          "Thriller"
+        ],
+        "ratingCount": 112,
+        "klass": "head"
+      },
+      {
+        "id": 270,
+        "title": "Gattaca (1997)",
+        "score": 0.6546536707079771,
+        "genres": [
+          "Drama",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "ratingCount": 136,
+        "klass": "head"
+      },
+      {
+        "id": 337,
+        "title": "House of Yes, The (1997)",
+        "score": 0.6546536707079771,
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Thriller"
+        ],
+        "ratingCount": 18,
+        "klass": "long-tail"
+      }
+    ],
+    "scoreSweep": {
+      "itemToItem": {
+        "count": 1678,
+        "min": 0,
+        "max": 1
+      },
+      "profile": {
+        "count": 1678,
+        "min": 0,
+        "max": 0.6546536707079771
+      }
+    },
+    "repeatProof": true,
+    "profileVector": [
+      0,
+      0,
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333,
+      0,
+      0,
+      0.3333333333333333,
+      0,
+      0,
+      0.3333333333333333,
+      0,
+      0,
+      0,
+      0.3333333333333333,
+      0.3333333333333333,
+      0,
+      0
+    ],
+    "profileToWatched": [
+      0.6547,
+      0.378,
+      0.6547
+    ],
+    "watchedPairwise": {
+      "1|296": 0,
+      "1|670": 0,
+      "296|670": 0
+    },
+    "overlapCount": 1,
+    "overlapIds": [
+      422
+    ],
+    "rawDotTop5": [
+      95,
+      422,
+      1219,
+      993,
+      820
+    ],
+    "cosineTop5": [
+      422,
+      95,
+      1219,
+      225,
+      261
+    ],
+    "dotTieExample": {
+      "sameDot": 3,
+      "id422": {
+        "title": "Aladdin and the King of Thieves (1996)",
+        "dot": 3,
+        "cosine": 1,
+        "norm": 1.7320508075688772
+      },
+      "id95": {
+        "title": "Aladdin (1992)",
+        "dot": 3,
+        "cosine": 0.8660254037844387,
+        "norm": 2
+      }
+    },
+    "popularityThreshold": {
+      "percentile": 80,
+      "headCount": 337,
+      "longTailCount": 1345,
+      "headCutoffCount": 100
+    },
+    "i2iClassCounts": {
+      "head": 2,
+      "longTail": 3
+    },
+    "profileClassCounts": {
+      "head": 3,
+      "longTail": 2
+    }
+  }
+}
