@@ -9,17 +9,46 @@
 <body>
     <div class="container">
         <h1>Content-Based Movie Recommender</h1>
-        <p>Select a movie you like, and we'll find similar ones for you!</p>
-        
+        <p>Pick three movies you like, then compare item-to-item versus profile-based recommendations.</p>
+
         <div class="controls">
-            <select id="movie-select">
-                <option value="" disabled selected>Select a movie</option>
+            <label for="movie-select-1">First movie (basis for item-to-item)</label>
+            <select id="movie-select-1">
+                <option value="" disabled selected>Select your first movie</option>
             </select>
-            <button id="recommend-btn" onclick="getRecommendations()">Get Recommendations</button>
+
+            <label for="movie-select-2">Second movie</label>
+            <select id="movie-select-2">
+                <option value="" disabled selected>Select your second movie</option>
+            </select>
+
+            <label for="movie-select-3">Third movie</label>
+            <select id="movie-select-3">
+                <option value="" disabled selected>Select your third movie</option>
+            </select>
+
+            <button id="recommend-btn" type="button">Get Recommendations</button>
         </div>
-        
+
         <div id="result-box">
-            <p id="result">Please wait, loading data...</p>
+            <p id="result" class="loading" aria-live="polite">Please wait, loading data...</p>
+
+            <div id="panels" class="panels hidden">
+                <section class="panel" aria-labelledby="panel-i2i-title">
+                    <h2 id="panel-i2i-title">Item-to-Item Top-5</h2>
+                    <ol id="item-to-item-list" class="rec-list"></ol>
+                </section>
+
+                <section class="panel" aria-labelledby="panel-prof-title">
+                    <h2 id="panel-prof-title">Profile-Based Top-5</h2>
+                    <ol id="profile-list" class="rec-list"></ol>
+                </section>
+            </div>
+
+            <div id="summary-box" class="summary hidden" aria-live="polite">
+                <h2>Comparison Summary</h2>
+                <div id="summary"></div>
+            </div>
         </div>
     </div>
 
