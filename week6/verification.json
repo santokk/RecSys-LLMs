@@ -1,0 +1,641 @@
+{
+  "backend": "webgl",
+  "generated_at": "2026-10-19T23:36:11.217Z",
+  "checks": [
+    {
+      "name": "reference graph: uniform alpha=0.85 matches readme 4.1 values",
+      "status": "PASS",
+      "detail": "C>A>B>D; produced by student pageRank(alpha, {transition: REFERENCE_GRAPH.transition}), iterations 28"
+    },
+    {
+      "name": "reference graph: restart at A alpha=0.85 matches readme 4.1 values",
+      "status": "PASS",
+      "detail": "A>C>B>D (D stays 0); produced by student personalizedPageRank(seedNode, alpha, {transition: REFERENCE_GRAPH.transition})"
+    },
+    {
+      "name": "row normalization: every nonzero-degree row sums to 1",
+      "status": "PASS",
+      "detail": "6 positive-degree row(s) sum to 1; 2 dangling row(s) are zero"
+    },
+    {
+      "name": "restart distributions: nonnegative and summing to 1",
+      "status": "PASS",
+      "detail": "uniform + one-hot over 4 nodes"
+    },
+    {
+      "name": "iterations preserve total probability (sum approx 1)",
+      "status": "PASS",
+      "detail": "sum = 1.0000002682 over 3 synthetic nodes (graph.js)"
+    },
+    {
+      "name": "stationary scores are nonnegative",
+      "status": "PASS",
+      "detail": "3 scores nonnegative (graph.js)"
+    },
+    {
+      "name": "one extra update produces approximately the same distribution",
+      "status": "PASS",
+      "detail": "L1 = 7.972e-7"
+    },
+    {
+      "name": "zero-degree node fixture preserves probability mass",
+      "status": "PASS",
+      "detail": "danglingMask [false,true,false,false,true]; mass 1.00000022 / 1.00000000"
+    },
+    {
+      "name": "matrix orientation: probability collects at the pointed-to node, not the source",
+      "status": "PASS",
+      "detail": "p = [0.486486, 0.256757, 0.256757]"
+    },
+    {
+      "name": "recommendTopK: excludes previously rated movies and breaks ties by ascending id",
+      "status": "PASS",
+      "detail": "10 eligible items for user 1"
+    },
+    {
+      "name": "graph mapping: node count equals observed users plus observed movies",
+      "status": "PASS",
+      "detail": "2554 nodes = 943 users + 1611 movies"
+    },
+    {
+      "name": "public surface: every required name is defined",
+      "status": "PASS",
+      "detail": "10 functions + ALPHA_GRID + MF_INFO"
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "pending": 0,
+  "tfjs_version": "4.22.0",
+  "d3_version": "7.9.0",
+  "mf_reference": {
+    "factors": 16,
+    "epochs": 30,
+    "learningRate": 0.01,
+    "regularization": 0.05,
+    "batchSize": 512,
+    "seed": 20261013,
+    "backend": "webgl",
+    "trained": true,
+    "trainedAt": "2026-10-19T23:35:57.752Z",
+    "checkpoint": 1,
+    "validationRMSE": 1.1829944264078285
+  },
+  "ppr_convergence_summary": [
+    {
+      "method": "pagerank",
+      "split": "test",
+      "alpha": 0.5,
+      "cohort": 861,
+      "runs": 1,
+      "nonConverged": 0,
+      "maxIterations": 19,
+      "maxResidual": 5.508336471393704e-7
+    },
+    {
+      "method": "ppr",
+      "split": "test",
+      "alpha": 0.5,
+      "cohort": 861,
+      "runs": 861,
+      "nonConverged": 0,
+      "maxIterations": 22,
+      "maxResidual": 9.99910071186605e-7
+    },
+    {
+      "method": "ppr",
+      "split": "val",
+      "alpha": 0.5,
+      "cohort": 846,
+      "runs": 846,
+      "nonConverged": 0,
+      "maxIterations": 22,
+      "maxResidual": 9.99910071186605e-7
+    },
+    {
+      "method": "ppr",
+      "split": "val",
+      "alpha": 0.7,
+      "cohort": 846,
+      "runs": 846,
+      "nonConverged": 0,
+      "maxIterations": 42,
+      "maxResidual": 9.99033204607258e-7
+    },
+    {
+      "method": "ppr",
+      "split": "val",
+      "alpha": 0.85,
+      "cohort": 846,
+      "runs": 846,
+      "nonConverged": 0,
+      "maxIterations": 94,
+      "maxResidual": 9.997602319344878e-7
+    },
+    {
+      "method": "ppr",
+      "split": "val",
+      "alpha": 0.95,
+      "cohort": 846,
+      "runs": 846,
+      "nonConverged": 71,
+      "maxIterations": 500,
+      "maxResidual": 0.0000021856476450921036
+    }
+  ],
+  "runtimes_ms": {
+    "propagation": [
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.515Z",
+        "kind": "buildGraph",
+        "nodes": 2554,
+        "edges": 45602,
+        "ms": 27.5
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.589Z",
+        "kind": "pagerank",
+        "path": "transition",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 28,
+        "nonConverged": 0,
+        "maxIterations": 28,
+        "maxResidual": 9.5367431640625e-7,
+        "ms": 68.39999997615814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.614Z",
+        "kind": "ppr",
+        "path": "transition",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 30,
+        "nonConverged": 0,
+        "maxIterations": 30,
+        "maxResidual": 4.3213367462158203e-7,
+        "ms": 25.700000017881393
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.719Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 104.09999999403954
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.803Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 81.2000000178814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.880Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 75.40000000596046
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:39.984Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 78,
+        "nonConverged": 0,
+        "maxIterations": 78,
+        "maxResidual": 9.5367431640625e-7,
+        "ms": 102.2000000178814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:40.080Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.85,
+        "columns": 2,
+        "steps": 89,
+        "nonConverged": 0,
+        "maxIterations": 89,
+        "maxResidual": 9.834766387939453e-7,
+        "ms": 96.40000000596046
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:40.156Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 74.10000002384186
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:40.400Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.5,
+        "columns": 943,
+        "steps": 22,
+        "nonConverged": 0,
+        "maxIterations": 22,
+        "maxResidual": 9.99910071186605e-7,
+        "ms": 229.09999999403954
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:40.944Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.7,
+        "columns": 943,
+        "steps": 42,
+        "nonConverged": 0,
+        "maxIterations": 42,
+        "maxResidual": 9.99033204607258e-7,
+        "ms": 320.89999997615814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:41.871Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.85,
+        "columns": 943,
+        "steps": 94,
+        "nonConverged": 0,
+        "maxIterations": 94,
+        "maxResidual": 9.997602319344878e-7,
+        "ms": 711.6999999880791
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:45.780Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.95,
+        "columns": 943,
+        "steps": 500,
+        "nonConverged": 75,
+        "maxIterations": 500,
+        "maxResidual": 0.0000021856476450921036,
+        "ms": 3700.7000000178814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:46.041Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.5,
+        "columns": 1,
+        "steps": 19,
+        "nonConverged": 0,
+        "maxIterations": 19,
+        "maxResidual": 5.508336471393704e-7,
+        "ms": 58.30000001192093
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:35:46.210Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.5,
+        "columns": 943,
+        "steps": 22,
+        "nonConverged": 0,
+        "maxIterations": 22,
+        "maxResidual": 9.99910071186605e-7,
+        "ms": 168.90000000596046
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:04.620Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.7,
+        "columns": 943,
+        "steps": 42,
+        "nonConverged": 0,
+        "maxIterations": 42,
+        "maxResidual": 9.99033204607258e-7,
+        "ms": 332.2000000178814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:05.515Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.85,
+        "columns": 943,
+        "steps": 94,
+        "nonConverged": 0,
+        "maxIterations": 94,
+        "maxResidual": 9.997602319344878e-7,
+        "ms": 680.1000000238419
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:09.460Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.95,
+        "columns": 943,
+        "steps": 500,
+        "nonConverged": 75,
+        "maxIterations": 500,
+        "maxResidual": 0.0000021856476450921036,
+        "ms": 3731
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.544Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.85,
+        "columns": 943,
+        "steps": 94,
+        "nonConverged": 0,
+        "maxIterations": 94,
+        "maxResidual": 9.997602319344878e-7,
+        "ms": 695
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.718Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.5,
+        "columns": 943,
+        "steps": 22,
+        "nonConverged": 0,
+        "maxIterations": 22,
+        "maxResidual": 9.99910071186605e-7,
+        "ms": 173
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.750Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.5,
+        "columns": 1,
+        "steps": 19,
+        "nonConverged": 0,
+        "maxIterations": 19,
+        "maxResidual": 5.508336471393704e-7,
+        "ms": 29.099999994039536
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.779Z",
+        "kind": "pagerank",
+        "path": "transition",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 28,
+        "nonConverged": 0,
+        "maxIterations": 28,
+        "maxResidual": 9.5367431640625e-7,
+        "ms": 21.400000005960464
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.800Z",
+        "kind": "ppr",
+        "path": "transition",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 30,
+        "nonConverged": 0,
+        "maxIterations": 30,
+        "maxResidual": 4.3213367462158203e-7,
+        "ms": 21
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.870Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 69.2000000178814
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:10.939Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 67.10000002384186
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:11.008Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 67.30000001192093
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:11.071Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 78,
+        "nonConverged": 0,
+        "maxIterations": 78,
+        "maxResidual": 9.5367431640625e-7,
+        "ms": 62.099999994039536
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:11.140Z",
+        "kind": "ppr",
+        "path": "graph-batch",
+        "alpha": 0.85,
+        "columns": 2,
+        "steps": 89,
+        "nonConverged": 0,
+        "maxIterations": 89,
+        "maxResidual": 9.834766387939453e-7,
+        "ms": 68.40000000596046
+      },
+      {
+        "backend": "webgl",
+        "at": "2026-10-19T23:36:11.212Z",
+        "kind": "pagerank",
+        "path": "graph",
+        "alpha": 0.85,
+        "columns": 1,
+        "steps": 84,
+        "nonConverged": 0,
+        "maxIterations": 84,
+        "maxResidual": 9.238719940185547e-7,
+        "ms": 70
+      }
+    ],
+    "evaluation": [
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.5,
+        "cohort": 846,
+        "ms": 448.5,
+        "at": "2026-10-19T23:35:40.613Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.7,
+        "cohort": 846,
+        "ms": 534.2000000178814,
+        "at": "2026-10-19T23:35:41.150Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.85,
+        "cohort": 846,
+        "ms": 918,
+        "at": "2026-10-19T23:35:42.070Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.95,
+        "cohort": 846,
+        "ms": 3909.300000011921,
+        "at": "2026-10-19T23:35:45.982Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "popularity",
+        "split": "test",
+        "alpha": null,
+        "cohort": 861,
+        "ms": 744.9000000059605,
+        "at": "2026-10-19T23:35:58.497Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "pagerank",
+        "split": "test",
+        "alpha": 0.5,
+        "cohort": 861,
+        "ms": 933,
+        "at": "2026-10-19T23:36:00.117Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "test",
+        "alpha": 0.5,
+        "cohort": 861,
+        "ms": 978.8000000119209,
+        "at": "2026-10-19T23:36:01.910Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "mf",
+        "split": "test",
+        "alpha": null,
+        "cohort": 861,
+        "ms": 629.1999999880791,
+        "at": "2026-10-19T23:36:03.539Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.5,
+        "cohort": 846,
+        "ms": 211.90000000596046,
+        "at": "2026-10-19T23:36:04.279Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.7,
+        "cohort": 846,
+        "ms": 544.1999999880791,
+        "at": "2026-10-19T23:36:04.826Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.85,
+        "cohort": 846,
+        "ms": 891.1999999880791,
+        "at": "2026-10-19T23:36:05.720Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "ppr",
+        "split": "val",
+        "alpha": 0.95,
+        "cohort": 846,
+        "ms": 3956.300000011921,
+        "at": "2026-10-19T23:36:09.678Z"
+      },
+      {
+        "step": "recallAtK",
+        "method": "popularity",
+        "split": "test",
+        "alpha": null,
+        "cohort": 861,
+        "ms": 165.90000000596046,
+        "at": "2026-10-19T23:36:09.845Z"
+      }
+    ]
+  }
+}

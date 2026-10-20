@@ -189,3 +189,44 @@ Serve the folder over HTTP (the data layer uses `fetch`, so `file://` will not w
     python3 -m http.server 8000
 
 Then open `http://localhost:8000/index.html`.
+
+---
+
+## Submission run instructions (HW6 submission, appended by the student)
+
+Everything above this line is the unchanged assignment text. This file is named `readme.md`; on the case-insensitive macOS file system used for this submission, `README.md` and `readme.md` are the same path, so the required run instructions are appended here instead of being placed in a second file.
+
+**Dependencies actually used.** TensorFlow.js 4.22.0 (CDN script in `index.html`), D3 7.9.0 (vendored `vendor/d3.min.js`), Python 3 only for the static file server. Tested in desktop Chrome; the expected backend is `webgl` with 32-bit float textures. No build step and no package installation.
+
+**Serve and open.**
+
+    cd week6
+    python3 -m http.server 8000
+
+Open `http://localhost:8000/index.html` (opening the file directly with `file://` does not work).
+
+**Button sequence used for the submitted exports.**
+
+1. Build graph — expect 2,554 nodes (943 users + 1,611 movies), 45,602 positive training edges, 1 zero-degree user, 253 zero-degree movies.
+2. Run tests — expect `pass 12, fail 0, pending 0`.
+3. Run alpha sweep (validation) — validation Recall@10 is reported for alpha 0.50, 0.70, 0.85 and 0.95.
+4. Note that alpha = 0.50 is selected (highest validation Recall@10; an exact tie would go to the smaller alpha).
+5. Set the alpha slider to 0.50 explicitly. The evaluation button uses the current slider value; it does not apply the sweep result by itself.
+6. Evaluate Recall@10 — all four methods. The first click also trains the supplied MF reference.
+7. Run two-user demo (alpha / seed) — users 1 and 2: user 1 at 0.85, user 2 at 0.85, user 1 at 0.50.
+8. For users 1 and 2, select each method (popularity, pagerank, ppr, mf) and press Recommend Top-10, so that both users' lists are recorded.
+9. Export verification, Export results, Export recommendations.
+
+**Approximate runtimes (one macOS machine, Chrome, WebGL; measurements from one machine, not benchmarks).** Validation sweep about 6 s, of which alpha 0.95 takes about 4 s; first full evaluation including MF training about 25–30 s; repeated evaluation about 9 s; all-user PPR batch 0.2 s at alpha 0.50 and 3.7 s at alpha 0.95.
+
+**Exports.**
+
+- `verification.json` — the 12 self-checks with status and detail, pass/fail/pending counts, backend, TensorFlow.js and D3 versions, the MF reference configuration and checkpoint, cohort-level PageRank/PPR convergence summaries, and propagation/evaluation runtimes.
+- `results.csv` — one row per test method and per validation alpha: Recall@10, cohort size, excluded unseen movies (count and IDs), users without an eligible relevant movie, mean recommended-list popularity, convergence fields, split, selected alpha, MF checkpoint and validation RMSE, cohort PPR convergence (`ppr_runs`, `ppr_nonconverged`, `ppr_max_iterations`, `ppr_max_residual`) and an `error` column. The legacy `iterations`/`residual`/`converged` columns on PPR rows describe one seed user's run; use the `ppr_*` columns for the cohort.
+- `recommendations.csv` — user ID, method, alpha, rank, movie ID, title, genres, score and training popularity for every recorded Top-10 list (100 rows).
+
+**Disclosures.**
+
+- The instructor-supplied MF reference (16 factors, Adam 0.01, L2 0.05, batch 512, 30 epochs, seed 20261013) collapses to the global-mean predictor under its supplied regularization, which adds a full-matrix L2 sum on every mini-batch. Its selected checkpoint is epoch 1 (validation RMSE 1.1829944264078285), all candidate scores are equal, and its Top-10 order is the ascending movie-ID tie-break. This describes this supplied configuration only, not matrix factorization in general.
+- At alpha = 0.95, 71 of the 846 validation-cohort PPR runs reach the 500-iteration cap without meeting the 1e-6 L1 tolerance under float32 WebGL arithmetic; they are exported as non-converged. The selected alpha = 0.50 converged for all 861 evaluated test users (maximum 22 iterations).
+- PPR and PageRank scores are long-run graph-walk scores. They are not predicted ratings, purchase probabilities or viewing probabilities, and they are not comparable in scale to MF scores.
