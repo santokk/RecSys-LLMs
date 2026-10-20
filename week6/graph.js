@@ -354,9 +354,84 @@ function getGraph() {
  * @returns {Graph}
  */
 function buildGraph(train) {
-  // TODO(hw6): collect observed ids, map them to contiguous indices, fill R and
-  // degree, then return the object described in the typedef and readme 3.1.
-  throw new Error("TODO(hw6): buildGraph is not implemented yet.");
+  const started = graphNow();
+  const rows = Array.isArray(train) ? train : [];
+
+  // Node universe: every user id and movie id observed in TRAIN (any rating).
+  const userSet = new Set();
+  const movieSet = new Set();
+  for (let k = 0; k < rows.length; k++) {
+    const row = rows[k];
+    if (!row) continue;
+    const userId = Number(row.userId);
+    const movieId = Number(row.movieId);
+    if (!Number.isInteger(userId) || !Number.isInteger(movieId)) continue;
+    userSet.add(userId);
+    movieSet.add(movieId);
+  }
+  const userIds = Array.from(userSet).sort((a, b) => a - b);
+  const movieIds = Array.from(movieSet).sort((a, b) => a - b);
+  const nUsers = userIds.length;
+  const nMovies = movieIds.length;
+  const nodeCount = nUsers + nMovies;
+
+  const userIndexOf = new Map();
+  userIds.forEach((id, index) => userIndexOf.set(id, index));
+  const movieIndexOf = new Map();
+  movieIds.forEach((id, index) => movieIndexOf.set(id, index));
+
+  // R[u][i] = 1 iff the TRAIN rating is >= 4.0; a repeated pair counts once.
+  const R = new Array(nUsers);
+  for (let u = 0; u < nUsers; u++) R[u] = new Array(nMovies).fill(0);
+  const degree = new Float64Array(nodeCount);
+  let positiveEdges = 0;
+  for (let k = 0; k < rows.length; k++) {
+    const row = rows[k];
+    if (!row || !(Number(row.rating) >= 4.0)) continue;
+    const u = userIndexOf.get(Number(row.userId));
+    const i = movieIndexOf.get(Number(row.movieId));
+    if (u === undefined || i === undefined || R[u][i] === 1) continue;
+    R[u][i] = 1;
+    degree[u] += 1;
+    degree[nUsers + i] += 1;
+    positiveEdges += 1;
+  }
+
+  const zeroDegreeUsers = [];
+  for (let u = 0; u < nUsers; u++) if (degree[u] === 0) zeroDegreeUsers.push(userIds[u]);
+  const zeroDegreeMovies = [];
+  for (let i = 0; i < nMovies; i++) if (degree[nUsers + i] === 0) zeroDegreeMovies.push(movieIds[i]);
+
+  graphLogRun({ kind: "buildGraph", nodes: nodeCount, edges: positiveEdges, ms: graphNow() - started });
+
+  return {
+    nUsers: nUsers,
+    nMovies: nMovies,
+    userIds: userIds,
+    movieIds: movieIds,
+    userIndexOf: userIndexOf,
+    movieIndexOf: movieIndexOf,
+    nodeCount: nodeCount,
+    // Raw user id -> global node index, or -1 for an id outside the training split.
+    nodeOfUser: function (userId) {
+      const local = userIndexOf.get(Number(userId));
+      return local === undefined ? -1 : local;
+    },
+    // Global node index -> raw movie id, or -1 for a user node / out-of-range index.
+    movieOfNode: function (node) {
+      const local = Number(node) - nUsers;
+      return Number.isInteger(local) && local >= 0 && local < nMovies ? movieIds[local] : -1;
+    },
+    isUserNode: function (node) {
+      const index = Number(node);
+      return Number.isInteger(index) && index >= 0 && index < nUsers;
+    },
+    degree: degree,
+    zeroDegreeUsers: zeroDegreeUsers,
+    zeroDegreeMovies: zeroDegreeMovies,
+    positiveEdges: positiveEdges,
+    R: R
+  };
 }
 
 /**
@@ -388,8 +463,41 @@ function buildGraph(train) {
  * @returns {RowNormalized}
  */
 function rowNormalize(graph) {
-  // TODO(hw6): normalize positive-degree rows and build the dangling mask.
-  throw new Error("TODO(hw6): rowNormalize is not implemented yet.");
+  if (!graph || !Array.isArray(graph.R)) return { Q: [], danglingMask: [] };
+  // Inspection helper only: it materializes the dense square Q, which costs
+  // nodeCount^2 numbers (~52 MB on MovieLens). The MovieLens propagation never
+  // calls it; it uses the two off-diagonal blocks (graphBlockOperator) instead.
+  const dims = graphBlockDims(graph);
+  const nUsers = dims.nUsers;
+  const nMovies = dims.nMovies;
+  const n = nUsers + nMovies;
+  const R = graph.R;
+
+  const userDegree = new Float64Array(nUsers);
+  const movieDegree = new Float64Array(nMovies);
+  for (let u = 0; u < nUsers; u++) {
+    for (let i = 0; i < nMovies; i++) {
+      if (R[u][i]) {
+        userDegree[u] += 1;
+        movieDegree[i] += 1;
+      }
+    }
+  }
+
+  const Q = new Array(n);
+  for (let r = 0; r < n; r++) Q[r] = new Array(n).fill(0);
+  for (let u = 0; u < nUsers; u++) {
+    for (let i = 0; i < nMovies; i++) {
+      if (!R[u][i]) continue;
+      Q[u][nUsers + i] = 1 / userDegree[u];   // user -> movie
+      Q[nUsers + i][u] = 1 / movieDegree[i];  // movie -> user
+    }
+  }
+
+  const danglingMask = new Array(n);
+  for (let u = 0; u < nUsers; u++) danglingMask[u] = userDegree[u] === 0;
+  for (let i = 0; i < nMovies; i++) danglingMask[nUsers + i] = movieDegree[i] === 0;
+  return { Q: Q, danglingMask: danglingMask };
 }
 
 /**
@@ -438,8 +546,29 @@ function rowNormalize(graph) {
  * @throws {Error} when neither `opts.transition` nor the global `GRAPH` exists.
  */
 function pageRank(alpha, opts) {
-  // TODO(hw6): power iteration with a uniform restart on the tensor path.
-  throw new Error("TODO(hw6): pageRank is not implemented yet.");
+  graphCheckAlpha(alpha, "pageRank");
+  const options = graphReadOptions(opts, "pageRank");
+  const started = graphNow();
+
+  if (options.transition) {
+    const dense = graphDenseOperator(options.transition, "pageRank");
+    const run = graphRunDense(dense, alpha, options, null);
+    graphLogRun(graphRunEntry("pagerank", "transition", alpha, run, started));
+    return graphColumnResult(run, 0);
+  }
+
+  const graph = graphRequireGraph("pageRank");
+  const op = graphBlockOperator(graph);
+  const n = op.nodeCount;
+  const V = tf.fill([n, 1], 1 / n);
+  let run;
+  try {
+    run = graphPowerIterate(op.link, op.maskRow, V, alpha, options.tol, options.maxIter);
+  } finally {
+    V.dispose();
+  }
+  graphLogRun(graphRunEntry("pagerank", "graph", alpha, run, started));
+  return graphColumnResult(run, 0);
 }
 
 /**
@@ -450,22 +579,29 @@ function pageRank(alpha, opts) {
  * rule, the same zero-degree policy and the same return shape
  * `{p, iterations, residual, converged}`.
  *
- * RESTART INDEX (node index, not a raw user id): the first argument is a node
- * INDEX and is used directly as the restart node. This is today's caller
- * convention; keep it.
- *  - default MovieLens path: the index is a global node index from `buildGraph`
- *    (a user node is `GRAPH.nodeOfUser(userId)` or equivalently any
- *    `index < GRAPH.nUsers`).
- *  - `opts.transition` path: the index must be in `[0, Q.length)` and refers to
- *    the same node order as `Q` (`REFERENCE_GRAPH.transition.nodeLabels` names
- *    the fixture's nodes for display).
+ * RESTART ARGUMENT - the meaning depends on the path, matching the callers:
+ *  - default GRAPH path: the first argument is the RAW user id. `script.js`'s
+ *    adapter calls `personalizedPageRank(rawUserId, alpha)`, and the harness's
+ *    zero-degree check seeds raw user 2 of a synthetic graph. The id is mapped
+ *    with `GRAPH.nodeOfUser` (users occupy nodes `[0, nUsers)`, so raw id u is
+ *    NOT node u). Reading it as a node index would shift every MovieLens
+ *    restart by one user.
+ *  - `opts.transition` path: the first argument is a node INDEX in
+ *    `[0, Q.length)`, in the same node order as `Q`
+ *    (`REFERENCE_GRAPH.transition.nodeLabels` names the fixture's nodes).
+ *
+ * BATCHING: on the GRAPH path every user's PPR is computed in one batched
+ * propagation (one restart column per user, each column stopping on its own
+ * tolerance) and cached for (graph, alpha, tol, maxIter); a call then returns
+ * that user's column. Iterations, residual and convergence are per user.
  *
  * FAILURE CASES: an unknown / out-of-range restart index must throw a clear
  * Error naming the index rather than silently falling back to a uniform
  * restart; and when neither `opts.transition` nor the global `GRAPH` is
  * available, throw instead of guessing.
  *
- * @param {number} userId Node index of the restart node (see RESTART INDEX).
+ * @param {number} userId Raw user id (GRAPH path) or restart node index
+ *   (`opts.transition` path); see RESTART ARGUMENT.
  * @param {number} alpha  Link-following probability in [0, 1]; 1 - alpha restarts.
  * @param {{tol?: number, maxIter?: number, transition?: TransitionSpec}} [opts]
  *   Same options as `pageRank`; defaults tol = 1e-6, maxIter = 500, transition
@@ -475,8 +611,475 @@ function pageRank(alpha, opts) {
  *   neither `opts.transition` nor the global `GRAPH` exists.
  */
 function personalizedPageRank(userId, alpha, opts) {
-  // TODO(hw6): one-hot restart at the user's node; fail loudly on unknown users.
-  throw new Error("TODO(hw6): personalizedPageRank is not implemented yet.");
+  graphCheckAlpha(alpha, "personalizedPageRank");
+  const options = graphReadOptions(opts, "personalizedPageRank");
+  const started = graphNow();
+
+  if (options.transition) {
+    const dense = graphDenseOperator(options.transition, "personalizedPageRank");
+    const seed = Number(userId);
+    if (!Number.isInteger(seed) || seed < 0 || seed >= dense.n) {
+      throw new Error(
+        "personalizedPageRank: restart node index " + String(userId) +
+        " is outside [0, " + dense.n + ") for the supplied transition"
+      );
+    }
+    const run = graphRunDense(dense, alpha, options, seed);
+    graphLogRun(graphRunEntry("ppr", "transition", alpha, run, started));
+    return graphColumnResult(run, 0);
+  }
+
+  const graph = graphRequireGraph("personalizedPageRank");
+  const rawId = Number(userId);
+  const node = Number.isInteger(rawId) ? graphUserNode(graph, rawId) : -1;
+  if (node < 0) {
+    throw new Error("personalizedPageRank: user id " + String(userId) + " is not a user node of the active graph");
+  }
+  const batch = graphPprBatch(graph, alpha, options);
+  return graphColumnResult(batch, node);
+}
+
+// ---------------------------------------------------------------------------
+// Propagation helpers (private, graph-prefixed)
+//
+// One power-iteration core serves both paths. The state P is an [n x B] tensor
+// in node order (B restart columns), and every iteration is
+//
+//   d      = mask^T P                         (mass on zero-degree nodes, [1 x B])
+//   next   = alpha * (Q^T P + V * d) + (1 - alpha) * V
+//   res_b  = sum_j |next[j, b] - P[j, b]|     (per-column L1 residual)
+//
+// A column stops (keeps its value) as soon as its own residual is below tol,
+// so a batched column reproduces exactly what a single run would return.
+// ---------------------------------------------------------------------------
+
+/**
+ * Bounded log of propagation / build runs: kind, path, alpha, columns, steps,
+ * non-converged columns, max iterations / residual, backend and runtime in ms.
+ * Read by `script.js`'s verification exporter; never read by the propagation.
+ *
+ * @type {Array<Object>}
+ */
+const GRAPH_RUN_LOG = [];
+
+/** Single-slot cache of the MovieLens block tensors (rebuilt when the graph changes). */
+const GRAPH_TENSOR_CACHE = { graph: null, op: null };
+
+/** Single-slot cache of all users' PPR columns for one (graph, alpha, tol, maxIter). */
+const GRAPH_PPR_CACHE = { graph: null, alpha: null, tol: null, maxIter: null, run: null };
+
+/**
+ * High-resolution clock in milliseconds.
+ *
+ * @returns {number}
+ */
+function graphNow() {
+  return typeof performance !== "undefined" && performance.now ? performance.now() : Date.now();
+}
+
+/**
+ * Append one entry to GRAPH_RUN_LOG, keeping at most the last 500 entries.
+ *
+ * @param {Object} entry
+ * @returns {void}
+ */
+function graphLogRun(entry) {
+  let backend = null;
+  try {
+    backend = typeof tf !== "undefined" ? tf.getBackend() : null;
+  } catch (error) {
+    backend = null;
+  }
+  GRAPH_RUN_LOG.push(Object.assign({ backend: backend, at: new Date().toISOString() }, entry));
+  if (GRAPH_RUN_LOG.length > 500) GRAPH_RUN_LOG.shift();
+}
+
+/**
+ * Summarize a finished power iteration for GRAPH_RUN_LOG.
+ *
+ * @param {string} kind "pagerank" or "ppr"
+ * @param {string} path "graph" or "transition"
+ * @param {number} alpha
+ * @param {Object} run result of graphPowerIterate
+ * @param {number} started graphNow() at the start
+ * @returns {Object}
+ */
+function graphRunEntry(kind, path, alpha, run, started) {
+  let nonConverged = 0;
+  let maxIterations = 0;
+  let maxResidual = 0;
+  for (let b = 0; b < run.columns; b++) {
+    if (!run.converged[b]) nonConverged++;
+    if (run.iterations[b] > maxIterations) maxIterations = run.iterations[b];
+    if (run.residuals[b] > maxResidual) maxResidual = run.residuals[b];
+  }
+  return {
+    kind: kind,
+    path: path,
+    alpha: alpha,
+    columns: run.columns,
+    steps: run.steps,
+    nonConverged: nonConverged,
+    maxIterations: maxIterations,
+    maxResidual: maxResidual,
+    ms: graphNow() - started
+  };
+}
+
+/**
+ * Reject a missing or invalid alpha; never fall back to a default.
+ *
+ * @param {*} alpha
+ * @param {string} fnName
+ * @returns {void}
+ */
+function graphCheckAlpha(alpha, fnName) {
+  if (typeof alpha !== "number" || !Number.isFinite(alpha) || alpha < 0 || alpha > 1) {
+    throw new Error(fnName + ": alpha must be a finite number in [0, 1] (got " + String(alpha) + ")");
+  }
+}
+
+/**
+ * Read `{tol, maxIter, transition}` with the readme defaults (1e-6, 500).
+ *
+ * @param {*} opts
+ * @param {string} fnName
+ * @returns {{tol:number, maxIter:number, transition:(TransitionSpec|null)}}
+ */
+function graphReadOptions(opts, fnName) {
+  const o = opts && typeof opts === "object" ? opts : {};
+  const tol = o.tol === undefined ? 1e-6 : Number(o.tol);
+  const maxIter = o.maxIter === undefined ? 500 : Number(o.maxIter);
+  if (!Number.isFinite(tol) || tol <= 0) throw new Error(fnName + ": tol must be a positive number");
+  if (!Number.isInteger(maxIter) || maxIter < 1) throw new Error(fnName + ": maxIter must be a positive integer");
+  return { tol: tol, maxIter: maxIter, transition: o.transition || null };
+}
+
+/**
+ * The active graph, or a clear error when there is none (never a silent uniform fallback).
+ *
+ * @param {string} fnName
+ * @returns {Graph}
+ */
+function graphRequireGraph(fnName) {
+  if (typeof tf === "undefined") throw new Error(fnName + ": TensorFlow.js is not loaded");
+  const graph = GRAPH;
+  if (!graph || !Array.isArray(graph.R)) {
+    throw new Error(fnName + ": no transition supplied and no graph is active; build the graph first");
+  }
+  const dims = graphBlockDims(graph);
+  if (!(dims.nUsers + dims.nMovies > 0)) {
+    throw new Error(fnName + ": the active graph has no nodes");
+  }
+  return graph;
+}
+
+/**
+ * Validate the R block shape of a graph.
+ *
+ * @param {Graph} graph
+ * @returns {{nUsers:number, nMovies:number}}
+ */
+function graphBlockDims(graph) {
+  const R = graph.R;
+  const nUsers = Number.isInteger(graph.nUsers) ? graph.nUsers : R.length;
+  const nMovies = Number.isInteger(graph.nMovies) ? graph.nMovies : (R.length && R[0] ? R[0].length : 0);
+  if (R.length !== nUsers) throw new Error("graph.R has " + R.length + " rows, expected nUsers = " + nUsers);
+  for (let u = 0; u < nUsers; u++) {
+    if (!R[u] || R[u].length !== nMovies) throw new Error("graph.R row " + u + " does not have nMovies = " + nMovies + " entries");
+  }
+  return { nUsers: nUsers, nMovies: nMovies };
+}
+
+/**
+ * Global node index of a raw user id, or -1.
+ *
+ * @param {Graph} graph
+ * @param {number} userId
+ * @returns {number}
+ */
+function graphUserNode(graph, userId) {
+  let node = -1;
+  if (typeof graph.nodeOfUser === "function") node = Number(graph.nodeOfUser(userId));
+  else if (graph.userIndexOf instanceof Map && graph.userIndexOf.has(userId)) node = Number(graph.userIndexOf.get(userId));
+  const nUsers = graphBlockDims(graph).nUsers;
+  return Number.isInteger(node) && node >= 0 && node < nUsers ? node : -1;
+}
+
+/**
+ * Validate a caller-supplied TransitionSpec (already row-normalized; not re-normalized).
+ *
+ * @param {TransitionSpec} spec
+ * @param {string} fnName
+ * @returns {{n:number, Q:number[][], mask:Float32Array}}
+ */
+function graphDenseOperator(spec, fnName) {
+  const Q = spec.Q;
+  if (!Array.isArray(Q) || Q.length === 0) throw new Error(fnName + ": opts.transition.Q must be a non-empty square array");
+  const n = Q.length;
+  for (let i = 0; i < n; i++) {
+    if (!Q[i] || Q[i].length !== n) throw new Error(fnName + ": opts.transition.Q row " + i + " is not of length " + n);
+    for (let j = 0; j < n; j++) {
+      const value = Number(Q[i][j]);
+      if (!Number.isFinite(value) || value < 0) throw new Error(fnName + ": opts.transition.Q[" + i + "][" + j + "] is not a nonnegative number");
+    }
+  }
+  const source = spec.danglingMask;
+  if (!source || source.length !== n) throw new Error(fnName + ": opts.transition.danglingMask must have length " + n);
+  const mask = new Float32Array(n);
+  for (let i = 0; i < n; i++) mask[i] = source[i] ? 1 : 0;
+  return { n: n, Q: Q, mask: mask };
+}
+
+/**
+ * Power iteration on a small explicit transition (one restart column).
+ *
+ * @param {{n:number, Q:number[][], mask:Float32Array}} dense
+ * @param {number} alpha
+ * @param {{tol:number, maxIter:number}} options
+ * @param {number|null} seed restart node index, or null for a uniform restart
+ * @returns {Object} result of graphPowerIterate
+ */
+function graphRunDense(dense, alpha, options, seed) {
+  if (typeof tf === "undefined") throw new Error("TensorFlow.js is not loaded");
+  const n = dense.n;
+  const v = new Float32Array(n);
+  if (seed === null) v.fill(1 / n);
+  else v[seed] = 1;
+  const QT = tf.tidy(() => tf.transpose(tf.tensor2d(dense.Q, [n, n], "float32")));
+  const maskRow = tf.tensor2d(dense.mask, [1, n]);
+  const V = tf.tensor2d(v, [n, 1]);
+  try {
+    return graphPowerIterate((P) => tf.matMul(QT, P), maskRow, V, alpha, options.tol, options.maxIter);
+  } finally {
+    QT.dispose();
+    maskRow.dispose();
+    V.dispose();
+  }
+}
+
+/**
+ * Cached block operator for a bipartite graph: the two off-diagonal blocks of
+ * Q^T and the zero-degree mask, so the square matrix is never materialized.
+ *
+ *   Au = R * diag(1 / movieDegree)   [nUsers x nMovies]  (mass a user receives from movies)
+ *   Am = R^T * diag(1 / userDegree)  [nMovies x nUsers]  (mass a movie receives from users)
+ *   Q^T P = [Au * P_movies ; Am * P_users]
+ *
+ * A zero degree gives a zero column (no outgoing links) and a 1 in the mask.
+ *
+ * @param {Graph} graph
+ * @returns {{nodeCount:number, nUsers:number, nMovies:number, maskRow:tf.Tensor, link:function(tf.Tensor):tf.Tensor}}
+ */
+function graphBlockOperator(graph) {
+  if (GRAPH_TENSOR_CACHE.graph === graph && GRAPH_TENSOR_CACHE.op) return GRAPH_TENSOR_CACHE.op;
+  graphDisposeBlockOperator();
+
+  const dims = graphBlockDims(graph);
+  const nUsers = dims.nUsers;
+  const nMovies = dims.nMovies;
+  const n = nUsers + nMovies;
+  const R = graph.R;
+  const userDegree = new Float64Array(nUsers);
+  const movieDegree = new Float64Array(nMovies);
+  for (let u = 0; u < nUsers; u++) {
+    for (let i = 0; i < nMovies; i++) {
+      if (R[u][i]) {
+        userDegree[u] += 1;
+        movieDegree[i] += 1;
+      }
+    }
+  }
+  const mask = new Float32Array(n);
+  for (let u = 0; u < nUsers; u++) mask[u] = userDegree[u] === 0 ? 1 : 0;
+  for (let i = 0; i < nMovies; i++) mask[nUsers + i] = movieDegree[i] === 0 ? 1 : 0;
+
+  let Au = null;
+  let Am = null;
+  if (nUsers > 0 && nMovies > 0) {
+    const au = new Float32Array(nUsers * nMovies);
+    const am = new Float32Array(nMovies * nUsers);
+    for (let u = 0; u < nUsers; u++) {
+      for (let i = 0; i < nMovies; i++) {
+        if (!R[u][i]) continue;
+        au[u * nMovies + i] = 1 / movieDegree[i];
+        am[i * nUsers + u] = 1 / userDegree[u];
+      }
+    }
+    Au = tf.tensor2d(au, [nUsers, nMovies]);
+    Am = tf.tensor2d(am, [nMovies, nUsers]);
+  }
+  const maskRow = tf.tensor2d(mask, [1, n]);
+
+  const op = {
+    nodeCount: n,
+    nUsers: nUsers,
+    nMovies: nMovies,
+    Au: Au,
+    Am: Am,
+    maskRow: maskRow,
+    link: function (P) {
+      if (!Au) return tf.zerosLike(P); // no edges at all: every node is zero-degree
+      const B = P.shape[1];
+      const users = tf.slice(P, [0, 0], [nUsers, B]);
+      const moviesBlock = tf.slice(P, [nUsers, 0], [nMovies, B]);
+      return tf.concat([tf.matMul(Au, moviesBlock), tf.matMul(Am, users)], 0);
+    }
+  };
+  GRAPH_TENSOR_CACHE.graph = graph;
+  GRAPH_TENSOR_CACHE.op = op;
+  return op;
+}
+
+/**
+ * Dispose the cached block tensors (the PPR cache holds CPU arrays only).
+ *
+ * @returns {void}
+ */
+function graphDisposeBlockOperator() {
+  const op = GRAPH_TENSOR_CACHE.op;
+  if (op) {
+    if (op.Au) op.Au.dispose();
+    if (op.Am) op.Am.dispose();
+    if (op.maskRow) op.maskRow.dispose();
+  }
+  GRAPH_TENSOR_CACHE.graph = null;
+  GRAPH_TENSOR_CACHE.op = null;
+}
+
+/**
+ * All users' PPR columns for (graph, alpha, tol, maxIter), computed once in a
+ * single batched propagation and cached in one slot (CPU memory only).
+ *
+ * @param {Graph} graph
+ * @param {number} alpha
+ * @param {{tol:number, maxIter:number}} options
+ * @returns {Object} result of graphPowerIterate, one column per user node
+ */
+function graphPprBatch(graph, alpha, options) {
+  const cache = GRAPH_PPR_CACHE;
+  if (cache.run && cache.graph === graph && cache.alpha === alpha &&
+      cache.tol === options.tol && cache.maxIter === options.maxIter) {
+    return cache.run;
+  }
+  cache.run = null;
+  cache.graph = null;
+  const started = graphNow();
+  const op = graphBlockOperator(graph);
+  const nUsers = op.nUsers;
+  const V = tf.tidy(() => {
+    const eye = tf.eye(nUsers);
+    return op.nMovies > 0 ? tf.concat([eye, tf.zeros([op.nMovies, nUsers])], 0) : eye;
+  });
+  let run;
+  try {
+    run = graphPowerIterate(op.link, op.maskRow, V, alpha, options.tol, options.maxIter);
+  } finally {
+    V.dispose();
+  }
+  graphLogRun(graphRunEntry("ppr", "graph-batch", alpha, run, started));
+  cache.graph = graph;
+  cache.alpha = alpha;
+  cache.tol = options.tol;
+  cache.maxIter = options.maxIter;
+  cache.run = run;
+  return run;
+}
+
+/**
+ * Power iteration with per-column stopping (see the section comment above).
+ *
+ * The only synchronous reads are the [B] residual vector once per iteration
+ * (needed to apply the stopping rule) and the final distribution, because the
+ * public pageRank / personalizedPageRank API is synchronous.
+ *
+ * @param {function(tf.Tensor):tf.Tensor} link P -> Q^T P
+ * @param {tf.Tensor} maskRow [1 x n] zero-degree mask
+ * @param {tf.Tensor} V [n x B] restart distributions (columns sum to 1)
+ * @param {number} alpha
+ * @param {number} tol
+ * @param {number} maxIter
+ * @returns {{values:Float32Array, n:number, columns:number, steps:number,
+ *            iterations:Int32Array, residuals:Float64Array, converged:Uint8Array}}
+ */
+function graphPowerIterate(link, maskRow, V, alpha, tol, maxIter) {
+  const n = V.shape[0];
+  const B = V.shape[1];
+  const iterations = new Int32Array(B);
+  const residuals = new Float64Array(B).fill(Number.NaN);
+  const converged = new Uint8Array(B);
+  const active = new Float32Array(B).fill(1);
+  let remaining = B;
+  let steps = 0;
+  let P = tf.clone(V);
+  let activeT = tf.tensor2d(active, [1, B]);
+  try {
+    while (remaining > 0 && steps < maxIter) {
+      const out = tf.tidy(() => {
+        const d = tf.matMul(maskRow, P);
+        const next = tf.add(
+          tf.mul(alpha, tf.add(link(P), tf.mul(V, d))),
+          tf.mul(1 - alpha, V)
+        );
+        const res = tf.sum(tf.abs(tf.sub(next, P)), 0);
+        // Active columns take `next` exactly; stopped columns keep their value.
+        const updated = tf.add(tf.mul(next, activeT), tf.mul(P, tf.sub(1, activeT)));
+        return { updated: updated, res: res };
+      });
+      const resValues = out.res.dataSync();
+      out.res.dispose();
+      P.dispose();
+      P = out.updated;
+      steps++;
+      let changed = false;
+      for (let b = 0; b < B; b++) {
+        if (!active[b]) continue;
+        iterations[b] = steps;
+        residuals[b] = resValues[b];
+        if (resValues[b] < tol) {
+          active[b] = 0;
+          converged[b] = 1;
+          remaining--;
+          changed = true;
+        }
+      }
+      if (changed && remaining > 0) {
+        activeT.dispose();
+        activeT = tf.tensor2d(active, [1, B]);
+      }
+    }
+    const values = P.dataSync();
+    return {
+      values: values,
+      n: n,
+      columns: B,
+      steps: steps,
+      iterations: iterations,
+      residuals: residuals,
+      converged: converged
+    };
+  } finally {
+    P.dispose();
+    activeT.dispose();
+  }
+}
+
+/**
+ * One column of a power-iteration result as a PageRankResult.
+ *
+ * @param {Object} run result of graphPowerIterate
+ * @param {number} column
+ * @returns {PageRankResult}
+ */
+function graphColumnResult(run, column) {
+  const p = new Float64Array(run.n);
+  for (let i = 0; i < run.n; i++) p[i] = run.values[i * run.columns + column];
+  return {
+    p: p,
+    iterations: run.iterations[column],
+    residual: run.residuals[column],
+    converged: run.converged[column] === 1
+  };
 }
 
 // ---------------------------------------------------------------------------

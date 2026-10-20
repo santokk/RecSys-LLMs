@@ -1110,8 +1110,59 @@ function mfScores(userId) {
  * @returns {Float64Array} Movie scores in `graph.movieIds` order.
  */
 function movieScores(p, graph) {
-  // TODO(hw6): select the movie-node entries of `p`, in `graph.movieIds` order.
-  throw new Error("TODO(hw6): movieScores is not implemented yet.");
+  if (!graph) throw new Error("movieScores: no graph supplied");
+  if (!p || typeof p.length !== "number") throw new Error("movieScores: p must be an array-like node vector");
+  const nodeCount = hw6NodeCount(graph);
+  if (p.length !== nodeCount) {
+    throw new Error("movieScores: p has " + p.length + " entries but the graph has " + nodeCount + " nodes");
+  }
+  const ids = hw6MovieIds(graph);
+  const userCount = Number.isFinite(graph.nUsers) ? Number(graph.nUsers) : hw6UserIds(graph).length;
+  const nodes = Array.isArray(graph.movieNodes) && graph.movieNodes.length === ids.length ? graph.movieNodes : null;
+  const out = new Float64Array(ids.length);
+  for (let k = 0; k < ids.length; k++) {
+    out[k] = Number(p[nodes ? nodes[k] : userCount + k]);
+  }
+  return out;
+}
+
+/** Methods accepted by `recommendTopK` / `recallAtK`. */
+const HW6_METHODS = ["popularity", "pagerank", "ppr", "mf"];
+
+/**
+ * Collector for per-user propagation records while `recallAtK` runs, so the
+ * cohort-level convergence summary covers exactly the evaluated users. `null`
+ * outside a `recallAtK` call.
+ *
+ * @type {Array<{userId:number, iterations:(number|null), residual:(number|null), converged:(boolean|null)}>|null}
+ */
+let HW6_PROPAGATION_COLLECTOR = null;
+
+/**
+ * Throw a clear (non-TODO) error when MF is requested before the provided
+ * reference has been trained: an untrained model must never yield a silent 0.
+ *
+ * @param {string} where
+ * @returns {void}
+ */
+function hw6RequireTrainedMf(where) {
+  if (HW6_MF_MODEL === null || MF_INFO.trainedAt === null) {
+    throw new Error(where + ": the provided MF reference is not trained yet; train it before requesting MF scores");
+  }
+}
+
+/**
+ * Validate an evaluation split name (`hw6ExclusionSet` treats anything other
+ * than "test" as validation, so an unknown name must not slip through).
+ *
+ * @param {*} split
+ * @param {string} where
+ * @returns {"val"|"test"}
+ */
+function hw6CheckSplit(split, where) {
+  const name = split === undefined ? "test" : split;
+  if (name !== "val" && name !== "test") throw new Error(where + ": split must be \"val\" or \"test\" (got " + String(split) + ")");
+  return name;
 }
 
 /**
@@ -1148,8 +1199,47 @@ function movieScores(p, graph) {
  * @returns {RecommendedMovie[]}
  */
 function recommendTopK(method, userId, K, split) {
-  // TODO(hw6): filter the candidate pool, sort by score desc / id asc, slice to K.
-  throw new Error("TODO(hw6): recommendTopK is not implemented yet.");
+  const name = hw6CheckSplit(split, "recommendTopK");
+  const k = K === undefined ? HW6_K : Math.floor(Number(K));
+  if (HW6_METHODS.indexOf(method) === -1 || !(k > 0)) return [];
+  const uid = Number(userId);
+  if (!Number.isFinite(uid)) return [];
+  if (method === "mf") hw6RequireTrainedMf("recommendTopK");
+
+  // Candidate-aligned scores (training-movie pool); -Infinity marks unplaceable movies.
+  const vector = hw6ScoreVector(method, uid, hw6ReadAlpha(), name);
+  if (HW6_PROPAGATION_COLLECTOR && vector.propagation) {
+    HW6_PROPAGATION_COLLECTOR.push({
+      userId: uid,
+      iterations: vector.propagation.iterations,
+      residual: vector.propagation.residual,
+      converged: vector.propagation.converged,
+    });
+  }
+
+  // Test: drop movies rated in train or validation; validation: train only.
+  const excluded = hw6ExclusionSet(name, uid);
+  const eligible = [];
+  for (let i = 0; i < vector.movieIds.length; i++) {
+    const movieId = vector.movieIds[i];
+    const score = vector.scores[i];
+    if (!Number.isFinite(score) || excluded.has(movieId)) continue;
+    eligible.push({ movieId: movieId, score: score });
+  }
+  eligible.sort(function (a, b) {
+    if (a.score !== b.score) return a.score > b.score ? -1 : 1;
+    return a.movieId - b.movieId;
+  });
+
+  return eligible.slice(0, k).map(function (item) {
+    return {
+      movieId: item.movieId,
+      title: hw6Title(item.movieId),
+      genres: hw6Genres(item.movieId).slice(),
+      score: item.score,
+      popularity: hw6PopularityOf(item.movieId),
+    };
+  });
 }
 
 /**
@@ -1181,8 +1271,84 @@ function recommendTopK(method, userId, K, split) {
  * @returns {RecallReport}
  */
 function recallAtK(method, K, split) {
-  // TODO(hw6): macro-average Recall@K over the shared cohort, with exclusions.
-  throw new Error("TODO(hw6): recallAtK is not implemented yet.");
+  const name = hw6CheckSplit(split, "recallAtK");
+  const k = K === undefined ? HW6_K : Math.floor(Number(K));
+  if (HW6_METHODS.indexOf(method) === -1) throw new Error("recallAtK: unknown method " + String(method));
+  if (!(k > 0)) throw new Error("recallAtK: K must be a positive integer (got " + String(K) + ")");
+  if (method === "mf") hw6RequireTrainedMf("recallAtK");
+
+  const started = typeof performance !== "undefined" ? performance.now() : Date.now();
+  const alpha = method === "pagerank" || method === "ppr" ? hw6ReadAlpha() : null;
+  const cohort = hw6SharedCohort(name);
+  const exclusions = hw6CohortExclusions(name);
+  const grades = HW6_STATE.gradesBySplit[name];
+  const perUser = [];
+  let total = 0;
+
+  const collector = alpha === null ? null : [];
+  HW6_PROPAGATION_COLLECTOR = collector;
+  try {
+    for (let c = 0; c < cohort.length; c++) {
+      const userId = cohort[c];
+      const excluded = hw6ExclusionSet(name, userId);
+      const relevantSet = new Set();
+      const gradeMap = grades.get(userId);
+      if (gradeMap) {
+        gradeMap.forEach(function (rating, movieId) {
+          if (rating >= 4.0 && HW6_STATE.candidateSet.has(movieId) && !excluded.has(movieId)) relevantSet.add(movieId);
+        });
+      }
+      const recs = recommendTopK(method, userId, k, name);
+      let hit = 0;
+      for (let r = 0; r < recs.length; r++) if (relevantSet.has(recs[r].movieId)) hit++;
+      perUser.push({ userId: userId, relevant: relevantSet.size, hit: hit });
+      if (relevantSet.size > 0) total += hit / relevantSet.size;
+    }
+  } finally {
+    HW6_PROPAGATION_COLLECTOR = null;
+  }
+
+  const ms = (typeof performance !== "undefined" ? performance.now() : Date.now()) - started;
+  if (!Array.isArray(HW6_STATE.runtimes)) HW6_STATE.runtimes = [];
+  HW6_STATE.runtimes.push({
+    step: "recallAtK", method: method, split: name, alpha: alpha, cohort: cohort.length, ms: ms,
+    at: new Date().toISOString(),
+  });
+  if (HW6_STATE.runtimes.length > 200) HW6_STATE.runtimes.shift();
+
+  // Cohort-level convergence over exactly the evaluated users (one global
+  // PageRank run serves every user, so it counts as a single run).
+  if (collector) {
+    const records = method === "pagerank" ? collector.slice(0, 1) : collector;
+    let nonConverged = 0;
+    let maxIterations = null;
+    let maxResidual = null;
+    for (let i = 0; i < records.length; i++) {
+      const record = records[i];
+      if (record.converged !== true) nonConverged++;
+      if (Number.isFinite(record.iterations) && (maxIterations === null || record.iterations > maxIterations)) maxIterations = record.iterations;
+      if (Number.isFinite(record.residual) && (maxResidual === null || record.residual > maxResidual)) maxResidual = record.residual;
+    }
+    if (!HW6_STATE.cohortConvergence) HW6_STATE.cohortConvergence = {};
+    HW6_STATE.cohortConvergence[method + "|" + name + "|" + alpha.toFixed(2)] = {
+      method: method,
+      split: name,
+      alpha: alpha,
+      cohort: cohort.length,
+      runs: records.length,
+      nonConverged: nonConverged,
+      maxIterations: maxIterations,
+      maxResidual: maxResidual,
+    };
+  }
+
+  return {
+    recall: cohort.length > 0 ? total / cohort.length : 0,
+    cohort: cohort.slice(),
+    excludedUnseen: exclusions.excludedUnseen,
+    excludedNoEligible: exclusions.excludedNoEligible,
+    perUser: perUser,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -3222,7 +3388,84 @@ function serializeVerification() {
     failed: result.failed,
     pending: result.pending,
   };
+
+  // Additive evidence fields (null when not measured in this session).
+  payload.tfjs_version = typeof tf !== "undefined" && tf.version ? tf.version.tfjs || null : null;
+  payload.d3_version = typeof d3 !== "undefined" && d3.version ? d3.version : null;
+  payload.mf_reference = {
+    factors: MF_INFO.factors,
+    epochs: MF_INFO.epochs,
+    learningRate: MF_INFO.learningRate,
+    regularization: MF_INFO.regularization,
+    batchSize: MF_INFO.batchSize,
+    seed: MF_INFO.seed,
+    backend: MF_INFO.backend,
+    trained: MF_INFO.trainedAt !== null,
+    trainedAt: MF_INFO.trainedAt,
+    checkpoint: MF_INFO.checkpoint,
+    validationRMSE: MF_INFO.validationRMSE,
+  };
+  const summary = HW6_STATE.cohortConvergence ? Object.keys(HW6_STATE.cohortConvergence).sort().map(function (key) {
+    return HW6_STATE.cohortConvergence[key];
+  }) : [];
+  payload.ppr_convergence_summary = summary.length ? summary : null;
+  const propagation = typeof GRAPH_RUN_LOG !== "undefined" ? GRAPH_RUN_LOG.slice() : [];
+  const evaluation = Array.isArray(HW6_STATE.runtimes) ? HW6_STATE.runtimes.slice() : [];
+  payload.runtimes_ms = propagation.length || evaluation.length
+    ? { propagation: propagation, evaluation: evaluation }
+    : null;
   return JSON.stringify(payload, null, 2);
+}
+
+/**
+ * The alpha that actually won the validation sweep (strictly greater recall,
+ * so exact ties keep the smaller alpha, as in `hw6RunAlphaSweep`), or `null`
+ * when the sweep has not run or any of its rows failed.
+ *
+ * @returns {number|null}
+ */
+function hw6SweepSelectedAlpha() {
+  const rows = HW6_STATE.alphaSweepRows;
+  if (!Array.isArray(rows) || rows.length !== ALPHA_GRID.length) return null;
+  let best = null;
+  let bestRecall = -Infinity;
+  for (let i = 0; i < rows.length; i++) {
+    if (rows[i].error || !Number.isFinite(rows[i].recall)) return null;
+    if (rows[i].recall > bestRecall) {
+      bestRecall = rows[i].recall;
+      best = rows[i].alpha;
+    }
+  }
+  return best;
+}
+
+/**
+ * Additive `results.csv` evidence columns for one row: selected alpha, MF
+ * checkpoint (MF rows), cohort-level PPR convergence (PPR rows) and error.
+ *
+ * @param {string} method
+ * @param {string} split
+ * @param {number|null} alpha
+ * @param {string} error
+ * @returns {Array<*>}
+ */
+function hw6ResultEvidence(method, split, alpha, error) {
+  const selected = hw6SweepSelectedAlpha();
+  const mfTrained = method === "mf" && MF_INFO.trainedAt !== null;
+  let convergence = null;
+  if (method === "ppr" && alpha !== null && HW6_STATE.cohortConvergence) {
+    convergence = HW6_STATE.cohortConvergence["ppr|" + split + "|" + Number(alpha).toFixed(2)] || null;
+  }
+  return [
+    selected === null ? "" : Number(selected).toFixed(2),
+    mfTrained && MF_INFO.checkpoint !== null ? MF_INFO.checkpoint : "",
+    mfTrained && MF_INFO.validationRMSE !== null ? MF_INFO.validationRMSE : "",
+    convergence ? convergence.runs : "",
+    convergence ? convergence.nonConverged : "",
+    convergence && convergence.maxIterations !== null ? convergence.maxIterations : "",
+    convergence && convergence.maxResidual !== null ? convergence.maxResidual : "",
+    error || "",
+  ];
 }
 
 /**
@@ -3230,8 +3473,12 @@ function serializeVerification() {
  *
  * Columns, in order: `method, alpha, recall_at_10, cohort_size,
  * excluded_unseen_ids, excluded_no_eligible_user, mean_popularity, iterations,
- * residual, converged`, then two extra evidence columns (`split`,
- * `excluded_unseen_id_list`) that do not disturb the required prefix.
+ * residual, converged`, then extra evidence columns that do not disturb the
+ * required prefix: `split`, `excluded_unseen_id_list`, `selected_alpha` (the
+ * validation-sweep winner, blank until a complete sweep has run),
+ * `mf_checkpoint_epoch` / `mf_validation_rmse` (MF rows), `ppr_runs`,
+ * `ppr_nonconverged`, `ppr_max_iterations`, `ppr_max_residual` (PPR rows,
+ * aggregated over the evaluated cohort) and `error`.
  *
  * Rows come from whatever has actually been run: the four-method TEST
  * comparison, the PPR VALIDATION alpha sweep, and the PageRank / PPR
@@ -3245,6 +3492,9 @@ function serializeResults() {
     "method", "alpha", "recall_at_10", "cohort_size", "excluded_unseen_ids",
     "excluded_no_eligible_user", "mean_popularity", "iterations", "residual",
     "converged", "split", "excluded_unseen_id_list",
+    // Additive evidence columns (after the required prefix).
+    "selected_alpha", "mf_checkpoint_epoch", "mf_validation_rmse", "ppr_runs",
+    "ppr_nonconverged", "ppr_max_iterations", "ppr_max_residual", "error",
   ];
   const rows = [];
 
@@ -3265,7 +3515,7 @@ function serializeResults() {
       row.converged === null ? "" : String(row.converged),
       row.split,
       unseenList,
-    ]);
+    ].concat(hw6ResultEvidence(row.method, row.split, row.alpha, row.error || (row.recall === null && row.note ? row.note : ""))));
   });
 
   (HW6_STATE.alphaSweepRows || []).forEach(function (row) {
@@ -3282,7 +3532,7 @@ function serializeResults() {
       "",
       "val",
       "",
-    ]);
+    ].concat(hw6ResultEvidence("ppr", "val", row.alpha, row.error)));
   });
 
   ["pagerank", "ppr"].forEach(function (key) {
@@ -3302,7 +3552,7 @@ function serializeResults() {
       verdict.value === null ? "" : String(verdict.value),
       "test",
       "",
-    ]);
+    ].concat(hw6ResultEvidence(key + "-single-run", "test", null, "")));
   });
 
   return hw6CsvDocument(header, rows);
