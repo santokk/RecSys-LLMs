@@ -1,0 +1,19 @@
+{
+ "policy": "labelled non-zero ids with an airing overlapping weeks 31-42 on a channel with a weeks 11-30 view",
+ "test_window": {
+  "start": "2020-07-27 00:00:00",
+  "end": "2020-10-19 00:00:00"
+ },
+ "use_of_test_schedule": "availability and title/category lookup only",
+ "pool_size": 3689,
+ "size_without_channel_restriction": 6649,
+ "programmes_seen_in_training": 2677,
+ "programmes_cold_unseen_in_training": 1012,
+ "ids_only_in_earlier_file_rows": 11,
+ "eligible_channels": 202,
+ "channels_airing_pool_ids": 87,
+ "pool_airings": 70618,
+ "pool_airing_seconds_inside_window": 239771040,
+ "labelled_test_rows_read": 144774,
+ "refit_manifest_sha256_at_open": "3b0f7feb543b709559a4ac60a1645ab8651cfee8df28a5794531c4a7d906dab3"
+}

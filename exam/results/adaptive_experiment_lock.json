@@ -1,0 +1,103 @@
+{
+ "experiment": "bounded exploratory history-adaptive PPR-popularity fusion",
+ "post_kaggle_feedback": true,
+ "locked_at_utc": "2026-10-31T23:15:33Z",
+ "chronology": [
+  "PPR and popularity were validated, selected and submitted first",
+  "a bounded repeat experiment followed, and its two candidates were then submitted",
+  "all four Kaggle score pairs were observed",
+  "only then was this exploratory experiment requested, so nothing here is pre-Kaggle evidence"
+ ],
+ "observed_kaggle_scores": {
+  "ppr": {
+   "public_map_at_5": 0.30616,
+   "private_map_at_5": 0.2722
+  },
+  "popularity": {
+   "public_map_at_5": 0.28078,
+   "private_map_at_5": 0.2775
+  },
+  "ppr_popularity_rrf": {
+   "public_map_at_5": 0.31824,
+   "private_map_at_5": 0.28728
+  },
+  "repeat_popularity_rrf": {
+   "public_map_at_5": 0.28864,
+   "private_map_at_5": 0.25512
+  },
+  "use": "context only; excluded from acceptance and selection"
+ },
+ "hypothesis": "PPR personalization is less reliable for sparse histories, so lowering its fusion weight for those users may improve validation",
+ "target_note": "local Top-5 preference and broad watched-set targets are assumptions; Kaggle's hidden target is unknown, and neither local target changes here",
+ "fixed_seed": 20261101,
+ "frozen_components": {
+  "ppr": "ppr_d0.3_seconds",
+  "popularity": "distinct training users with a watched airing"
+ },
+ "fusion": "score(i) = w_u / (10 + rank_ppr(i)) + (1 - w_u) / (10 + rank_popularity(i)), complete rankings, K = 10",
+ "comparison": "fixed w = 0.8, K = 10 fusion on the same fold",
+ "variants": [
+  {
+   "name": "adaptive_programmes",
+   "label": "A",
+   "history": "distinct positive training programmes",
+   "lower": 5,
+   "upper": 20,
+   "weights": [
+    0.4,
+    0.6,
+    0.8
+   ]
+  },
+  {
+   "name": "adaptive_days",
+   "label": "B",
+   "history": "distinct Kyiv calendar dates of the airing starts of positive labelled training interactions",
+   "lower": 3,
+   "upper": 14,
+   "weights": [
+    0.4,
+    0.6,
+    0.8
+   ]
+  }
+ ],
+ "rules": [
+  "history is computed from the fold's training side only",
+  "users with no training positive receive popularity directly",
+  "ties break by ascending numeric id",
+  "no other variant, threshold, weight or K may be added"
+ ],
+ "acceptance_rule": "a variant qualifies only if its primary MAP@5 strictly exceeds fixed w = 0.8 fusion on BOTH the main split and the stability fold",
+ "selection_rule": "if both qualify, take the larger main-split primary MAP@5; an exact tie goes to A",
+ "no_qualifier": "stop with the results and generate no CSV",
+ "pre_existing_result_sha256": {
+  "candidate_summary.json": "856e2e8b64ce60a007325c7982f2df85bc35942cc3f4381ef08d2d14a25ebd6c",
+  "full_refit.json": "1e5b226d4110f80b5f5b5e20f919faa29c32ab188d476c955818f17d22944e18",
+  "hybrid_lock.json": "8ccdd773af24a32fdec0fee305cd0779b11493f8ef5cae3f2b6438543d4236f0",
+  "hybrid_validation.json": "948e98c9d895ca9a423ff0b6be46143b90acf380e2b645308d46bc033157be61",
+  "model_grid.json": "9c60ab472d2fc283f8aef3b5f1d13aa5f3aec2fee80e1899ac513c0f7c8dcc3b",
+  "popularity_validation.json": "67669a3ff639996bdc130cc0bc62c4e232aec6d20ef8cfc0f2c42786b398e77e",
+  "post_kaggle_candidates.json": "e98be58ba1e1d1af76e89eda3b51e3964e493fd0109114864eaf4c54e065959d",
+  "post_kaggle_improvement_lock.json": "d8d736736fc88375659dea2dbbc91462b5852bf11b1a8e96db5a7ae04b160a04",
+  "post_kaggle_validation.json": "1f9a07abab1f6fb449357e6a2a8a35dc679eaddf72c07f6ebf57080dea2112fa",
+  "post_kaggle_verification.json": "67aba73e4cc52e96ecdbe90e5e4947ae249b8c40616b4d18ee80d84bd462502e",
+  "preprocess_audit.json": "ae8e761fc2c5543c8e82a4bed6182e8ad47c09f43ea1368fb80215c670d88baa",
+  "protocol_lock.json": "48b21f33ecc1bfe499414b1c56ac739c20613c4921f31d279c48c692e7450d11",
+  "report_user_tables.json": "b25ef7b39e51c1c9652da0696d1189f56e4ebad4e755cea53b0f50ffde7af791",
+  "runtime.json": "12049d91585487265c7b447a7371d854c5b6a3a6ac6228dc122b5357d5200220",
+  "split_audit.json": "7f15168ee923b83ee4d054db7b5365689acf7e2edb3c254d594014bd8dadd0b6",
+  "stability_fold.json": "b1cecf530582747ea9b13cf90bceb3687b497f16f952faa9a3ce0616b0ff8aa1",
+  "test_pool.json": "08bdba0f9f55d0fb0e56da6f8fa3468aa2b37f5d0e7accec99032c88195bd59b",
+  "verification.json": "a78bf4240f9a69657d935234a88b685aae433feacba796bb6db231479b348af6",
+  "verification_final.json": "4b9efa3278a2f4bada0dfff4c4bce858d9c55d9c5c6baf387f7e1c3b6eed7d42",
+  "verification_models.json": "b30aec7e8c9f39c0f18b4e07f478870f0a90a04de179bd590fc476f6e9c44251"
+ },
+ "existing_candidate_sha256": {
+  "popularity_submission.csv": "73d71295c19c61c3702a3c8e0fae951f27a307ce9b05cd39fd37e9b93e0996e0",
+  "ppr_pop_rrf_w08_k10_submission.csv": "b0184af8e011c85e2a2aac897433752a128dcea3bd01d73e5961485c88961d20",
+  "ppr_submission.csv": "d5f709351f3a866db1f218b527131658c15dcc2ab90b205ea44c04df2e7d3b77",
+  "repeat_submission.csv": "bf9333bad90c938c25d35f457e837e3f120dca9fde358d0109447682fc40122f"
+ },
+ "lock_sha256": "b65be59d2dc821cfce059abec7b8c38b682d8bffd40623bfce902d0891fdf744"
+}

@@ -1,0 +1,149 @@
+{
+ "definition": "overlap_capped >= min(threshold_seconds, airing_fraction * airing_seconds)",
+ "airing_fraction": 0.5,
+ "primary_seconds": 300,
+ "candidate_pool": {
+  "rule": "labelled ids with an airing overlapping the validation window on a channel that has a training-window view",
+  "size": 3519,
+  "size_without_channel_restriction": 6384,
+  "train_view_channels": 199,
+  "ids_not_airing_in_training_window": 1103
+ },
+ "by_threshold": {
+  "60": {
+   "train": {
+    "watched_airing_rows": 1773578,
+    "user_programme_pairs": 842249,
+    "users": 4841,
+    "programmes": 2972
+   },
+   "validation": {
+    "watched_airing_rows": 1165293,
+    "user_programme_pairs": 650295,
+    "users": 4806,
+    "programmes": 3229
+   },
+   "pool_items_cold": 1581,
+   "cohort_1260": {
+    "users": 1260,
+    "without_any_train_view": 4,
+    "cold_no_train_positive": 10,
+    "without_validation_positive": 14,
+    "without_eligible_watched_item": 14,
+    "with_eligible_watched_item": 1246,
+    "validation_positive_pairs": 229908,
+    "eligible_watched_pairs": 229908,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 160.5,
+    "watched_set_size_mean": 184.51685393258427,
+    "watched_pairs_repeating_user_train_item": 51004,
+    "watched_pairs_on_cold_items": 80466
+   },
+   "all_log_users": {
+    "users": 4914,
+    "without_any_train_view": 38,
+    "cold_no_train_positive": 73,
+    "without_validation_positive": 108,
+    "without_eligible_watched_item": 108,
+    "with_eligible_watched_item": 4806,
+    "validation_positive_pairs": 650295,
+    "eligible_watched_pairs": 650295,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 110.0,
+    "watched_set_size_mean": 135.30898876404495,
+    "watched_pairs_repeating_user_train_item": 142092,
+    "watched_pairs_on_cold_items": 223427
+   }
+  },
+  "300": {
+   "train": {
+    "watched_airing_rows": 1233493,
+    "user_programme_pairs": 573750,
+    "users": 4833,
+    "programmes": 2901
+   },
+   "validation": {
+    "watched_airing_rows": 859860,
+    "user_programme_pairs": 474489,
+    "users": 4799,
+    "programmes": 3160
+   },
+   "pool_items_cold": 1619,
+   "cohort_1260": {
+    "users": 1260,
+    "without_any_train_view": 4,
+    "cold_no_train_positive": 10,
+    "without_validation_positive": 14,
+    "without_eligible_watched_item": 14,
+    "with_eligible_watched_item": 1246,
+    "validation_positive_pairs": 162441,
+    "eligible_watched_pairs": 162441,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 110.0,
+    "watched_set_size_mean": 130.36998394863562,
+    "watched_pairs_repeating_user_train_item": 33861,
+    "watched_pairs_on_cold_items": 55829
+   },
+   "all_log_users": {
+    "users": 4914,
+    "without_any_train_view": 38,
+    "cold_no_train_positive": 81,
+    "without_validation_positive": 115,
+    "without_eligible_watched_item": 115,
+    "with_eligible_watched_item": 4799,
+    "validation_positive_pairs": 474489,
+    "eligible_watched_pairs": 474489,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 80.0,
+    "watched_set_size_mean": 98.87247343196499,
+    "watched_pairs_repeating_user_train_item": 97941,
+    "watched_pairs_on_cold_items": 160088
+   }
+  },
+  "600": {
+   "train": {
+    "watched_airing_rows": 1002839,
+    "user_programme_pairs": 467356,
+    "users": 4824,
+    "programmes": 2863
+   },
+   "validation": {
+    "watched_airing_rows": 729610,
+    "user_programme_pairs": 403879,
+    "users": 4792,
+    "programmes": 3138
+   },
+   "pool_items_cold": 1646,
+   "cohort_1260": {
+    "users": 1260,
+    "without_any_train_view": 4,
+    "cold_no_train_positive": 10,
+    "without_validation_positive": 14,
+    "without_eligible_watched_item": 14,
+    "with_eligible_watched_item": 1246,
+    "validation_positive_pairs": 135899,
+    "eligible_watched_pairs": 135899,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 90.0,
+    "watched_set_size_mean": 109.06821829855538,
+    "watched_pairs_repeating_user_train_item": 27276,
+    "watched_pairs_on_cold_items": 46050
+   },
+   "all_log_users": {
+    "users": 4914,
+    "without_any_train_view": 38,
+    "cold_no_train_positive": 90,
+    "without_validation_positive": 122,
+    "without_eligible_watched_item": 122,
+    "with_eligible_watched_item": 4792,
+    "validation_positive_pairs": 403879,
+    "eligible_watched_pairs": 403879,
+    "positive_pairs_outside_pool": 0,
+    "watched_set_size_median": 67.0,
+    "watched_set_size_mean": 84.28192821368948,
+    "watched_pairs_repeating_user_train_item": 80091,
+    "watched_pairs_on_cold_items": 134594
+   }
+  }
+ }
+}

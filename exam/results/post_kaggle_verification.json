@@ -1,0 +1,509 @@
+{
+ "post_kaggle_feedback": true,
+ "passed": 94,
+ "failed": [],
+ "checks": [
+  {
+   "check": "source unchanged: dataset11-30.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_11-20-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_21-30-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_31-42-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: submission.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "lock hash is intact",
+   "passed": true,
+   "detail": "ba02094f71a4639842a75d1099a6a2ca0c40b51382fc8440fa22662764b3cc91"
+  },
+  {
+   "check": "all results labelled post-Kaggle",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "results belong to this lock",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "observed scores recorded as supplied",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "exactly four repeat variants declared",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "lock predates the results",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "selection code never reads Kaggle scores",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "every pre-existing result is unchanged",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "protected candidates unchanged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: preprocess",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: split",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: models",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: hybrid",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: refit",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: kaggle_candidates",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: post_kaggle",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed: evaluation",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule not parsed: candidates",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "new pipeline code never names the test schedule",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_seconds: every training airing starts before prediction",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_seconds: main recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "repeat_seconds: main MAP@5 rederived",
+   "passed": true,
+   "detail": 0.29652645502645514
+  },
+  {
+   "check": "repeat_seconds: main non-empty MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_4w: every training airing starts before prediction",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_4w: main recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "repeat_decay_4w: main MAP@5 rederived",
+   "passed": true,
+   "detail": 0.29278042328042275
+  },
+  {
+   "check": "repeat_decay_4w: main non-empty MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_8w: every training airing starts before prediction",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_8w: main recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "repeat_decay_8w: main MAP@5 rederived",
+   "passed": true,
+   "detail": 0.29737830687830646
+  },
+  {
+   "check": "repeat_decay_8w: main non-empty MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_8w_pop_rrf: every training airing starts before prediction",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_decay_8w_pop_rrf: main recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "repeat_decay_8w_pop_rrf: main MAP@5 rederived",
+   "passed": true,
+   "detail": 0.3019126984126982
+  },
+  {
+   "check": "repeat_decay_8w_pop_rrf: main non-empty MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "selection rederived from main MAP@5",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main popularity reference rederived",
+   "passed": true,
+   "detail": 0.17584126984126958
+  },
+  {
+   "check": "repeat scores rederived for heavy and light sample users",
+   "passed": true,
+   "detail": {
+    "users": 6,
+    "largest_difference": 1.1641532182693481e-10
+   }
+  },
+  {
+   "check": "half-life form equals the locked exponential form",
+   "passed": true,
+   "detail": 1693.8704248030645
+  },
+  {
+   "check": "pre-Kaggle hybrid main recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "pre-Kaggle hybrid main MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "fold MAP@5 rederived",
+   "passed": true,
+   "detail": 0.2165211640211637
+  },
+  {
+   "check": "fold popularity rederived",
+   "passed": true,
+   "detail": 0.11625661375661357
+  },
+  {
+   "check": "acceptance rederived",
+   "passed": true,
+   "detail": {
+    "main": [
+     0.3019126984126982,
+     0.17584126984126958
+    ],
+    "fold": [
+     0.2165211640211637,
+     0.11625661375661357
+    ]
+   }
+  },
+  {
+   "check": "final: no view stops after week 30",
+   "passed": true,
+   "detail": 1595797198
+  },
+  {
+   "check": "final: no view starts in the test window",
+   "passed": true,
+   "detail": 1595797122
+  },
+  {
+   "check": "final: no hold-out rows",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "final: training input equals the verified refit",
+   "passed": true,
+   "detail": 950305
+  },
+  {
+   "check": "final: test pool rederived",
+   "passed": true,
+   "detail": 3689
+  },
+  {
+   "check": "final: frozen PPR cohort order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "final: PPR items rederived",
+   "passed": true,
+   "detail": 4276
+  },
+  {
+   "check": "final: PPR component probabilities rederived",
+   "passed": true,
+   "detail": 3.773717449639946e-14
+  },
+  {
+   "check": "final: PPR top-50 component ranking rederived",
+   "passed": true,
+   "detail": "1258/1258"
+  },
+  {
+   "check": "final: RRF formula recomputed for one user",
+   "passed": true,
+   "detail": [
+    2400480,
+    240081,
+    20088,
+    2400508,
+    200337
+   ]
+  },
+  {
+   "check": "template has 1,260 unique users",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: header and exactly one final newline",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: no CR, NaN, exponent or decimal point",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: 1,260 rows",
+   "passed": true,
+   "detail": 1260
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: exactly two cells per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: exact template user order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: five positive integer ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: five distinct ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: only test-pool ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr_pop_rrf_w08_k10_submission.csv: all rows equal the independent recompute",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "hybrid SHA-256 and size match the summary",
+   "passed": true,
+   "detail": "b0184af8e011c85e2a2aac897433752a128dcea3bd01d73e5961485c88961d20"
+  },
+  {
+   "check": "final: every repeat airing starts before week 31",
+   "passed": true,
+   "detail": 1595796300
+  },
+  {
+   "check": "repeat file exists because the rule accepted it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: header and exactly one final newline",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: no CR, NaN, exponent or decimal point",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: 1,260 rows",
+   "passed": true,
+   "detail": 1260
+  },
+  {
+   "check": "repeat_submission.csv: exactly two cells per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: exact template user order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: five positive integer ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: five distinct ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: only test-pool ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "repeat_submission.csv: all rows equal the independent recompute",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "repeat SHA-256 and size match the summary",
+   "passed": true,
+   "detail": "bf9333bad90c938c25d35f457e837e3f120dca9fde358d0109447682fc40122f"
+  },
+  {
+   "check": "only the permitted candidate files exist",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "final submission not created",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "no absolute local paths under exam/",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "final submission path is not ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "generated arrays are ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw data is ignored inside exam/",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "nothing is staged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "git diff --check",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "untracked exam files pass whitespace check",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "no large file under exam/",
+   "passed": true,
+   "detail": 52879
+  }
+ ],
+ "execution": {
+  "seconds": 66.9,
+  "peak_rss_mib": 2300.6
+ }
+}

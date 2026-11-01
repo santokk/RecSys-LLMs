@@ -1,0 +1,101 @@
+{
+ "experiment": "bounded post-Kaggle robustness experiment",
+ "post_kaggle_feedback": true,
+ "locked_at_utc": "2026-10-31T22:42:44Z",
+ "chronology": [
+  "PPR and popularity were selected, generated and submitted first",
+  "their Public and Private Kaggle scores were then observed",
+  "this bounded experiment was requested only after those scores were seen",
+  "nothing produced here is pre-Kaggle evidence, except the w=0.8, K=10 hybrid's earlier validation result"
+ ],
+ "observed_kaggle_scores": {
+  "ppr": {
+   "public_map_at_5": 0.30616,
+   "private_map_at_5": 0.2722
+  },
+  "popularity": {
+   "public_map_at_5": 0.28078,
+   "private_map_at_5": 0.2775
+  },
+  "use": "reporting evidence only; excluded from acceptance and selection"
+ },
+ "motivation": "PPR led on Public but popularity led on Private by 0.00530, so one bounded test of a popularity-stabilised hybrid and a simple personal-repeat family is made, with no further tuning",
+ "fixed_seed": 20261101,
+ "candidates": {
+  "hybrid": {
+   "file": "ppr_pop_rrf_w08_k10_submission.csv",
+   "definition": "w / (K + rank_ppr) + (1 - w) / (K + rank_popularity), w = 0.8, K = 10",
+   "evaluated_before_kaggle": true,
+   "pre_kaggle_run": "hybrid_w0.8_k10",
+   "ppr_run": "ppr_d0.3_seconds"
+  },
+  "repeat": {
+   "file": "repeat_submission.csv",
+   "generated_only_if_accepted": true,
+   "evaluated_before_kaggle": false
+  }
+ },
+ "repeat_family": [
+  {
+   "name": "repeat_seconds",
+   "half_life_days": null,
+   "rrf_with_popularity": null
+  },
+  {
+   "name": "repeat_decay_4w",
+   "half_life_days": 28,
+   "rrf_with_popularity": null
+  },
+  {
+   "name": "repeat_decay_8w",
+   "half_life_days": 56,
+   "rrf_with_popularity": null
+  },
+  {
+   "name": "repeat_decay_8w_pop_rrf",
+   "half_life_days": 56,
+   "rrf_with_popularity": {
+    "repeat_weight": 0.8,
+    "popularity_weight": 0.2,
+    "rank_constant": 10
+   }
+  }
+ ],
+ "repeat_rules": [
+  "scores use only training-side positive interactions under the 300-second watched rule",
+  "age runs from the airing start to the prediction-window start, in days",
+  "age and weights use airing timestamps from the training side only",
+  "previously unseen programmes receive no repeat score",
+  "cold users and short lists use the existing popularity fallback",
+  "in the RRF variant, a user's candidates without a repeat score rank after scored ones by ascending id",
+  "exactly five distinct ids; ties by ascending numeric id",
+  "no additional variants, half-lives, weights or K values"
+ ],
+ "selection_rule": "highest main-validation Top-5-preference MAP@5 across all 1,260 users; ties to the first declared",
+ "stability_rule": "only the selected repeat variant runs on the weeks 11-27 to 28-30 fold",
+ "acceptance_rule": "generate repeat_submission.csv only if the selected variant's main MAP@5 is strictly above main popularity AND its fold MAP@5 is strictly above fold popularity",
+ "kaggle_scores_in_acceptance": false,
+ "pre_existing_result_sha256": {
+  "candidate_summary.json": "856e2e8b64ce60a007325c7982f2df85bc35942cc3f4381ef08d2d14a25ebd6c",
+  "full_refit.json": "1e5b226d4110f80b5f5b5e20f919faa29c32ab188d476c955818f17d22944e18",
+  "hybrid_lock.json": "8ccdd773af24a32fdec0fee305cd0779b11493f8ef5cae3f2b6438543d4236f0",
+  "hybrid_validation.json": "948e98c9d895ca9a423ff0b6be46143b90acf380e2b645308d46bc033157be61",
+  "model_grid.json": "9c60ab472d2fc283f8aef3b5f1d13aa5f3aec2fee80e1899ac513c0f7c8dcc3b",
+  "popularity_validation.json": "67669a3ff639996bdc130cc0bc62c4e232aec6d20ef8cfc0f2c42786b398e77e",
+  "preprocess_audit.json": "ae8e761fc2c5543c8e82a4bed6182e8ad47c09f43ea1368fb80215c670d88baa",
+  "protocol_lock.json": "48b21f33ecc1bfe499414b1c56ac739c20613c4921f31d279c48c692e7450d11",
+  "report_user_tables.json": "b25ef7b39e51c1c9652da0696d1189f56e4ebad4e755cea53b0f50ffde7af791",
+  "runtime.json": "12049d91585487265c7b447a7371d854c5b6a3a6ac6228dc122b5357d5200220",
+  "split_audit.json": "7f15168ee923b83ee4d054db7b5365689acf7e2edb3c254d594014bd8dadd0b6",
+  "stability_fold.json": "b1cecf530582747ea9b13cf90bceb3687b497f16f952faa9a3ce0616b0ff8aa1",
+  "test_pool.json": "08bdba0f9f55d0fb0e56da6f8fa3468aa2b37f5d0e7accec99032c88195bd59b",
+  "verification.json": "a78bf4240f9a69657d935234a88b685aae433feacba796bb6db231479b348af6",
+  "verification_final.json": "4b9efa3278a2f4bada0dfff4c4bce858d9c55d9c5c6baf387f7e1c3b6eed7d42",
+  "verification_models.json": "b30aec7e8c9f39c0f18b4e07f478870f0a90a04de179bd590fc476f6e9c44251"
+ },
+ "protected_candidate_sha256": {
+  "ppr_submission.csv": "d5f709351f3a866db1f218b527131658c15dcc2ab90b205ea44c04df2e7d3b77",
+  "popularity_submission.csv": "73d71295c19c61c3702a3c8e0fae951f27a307ce9b05cd39fd37e9b93e0996e0"
+ },
+ "lock_sha256": "ba02094f71a4639842a75d1099a6a2ca0c40b51382fc8440fa22662764b3cc91"
+}

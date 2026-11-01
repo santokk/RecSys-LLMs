@@ -1,0 +1,84 @@
+{
+ "post_kaggle_feedback": true,
+ "label": "POST-KAGGLE candidates: produced after PPR and popularity Kaggle scores were observed",
+ "lock_sha256": "ba02094f71a4639842a75d1099a6a2ca0c40b51382fc8440fa22662764b3cc91",
+ "candidates": {
+  "hybrid": {
+   "file": "ppr_pop_rrf_w08_k10_submission.csv",
+   "configuration": {
+    "file": "ppr_pop_rrf_w08_k10_submission.csv",
+    "definition": "w / (K + rank_ppr) + (1 - w) / (K + rank_popularity), w = 0.8, K = 10",
+    "evaluated_before_kaggle": true,
+    "pre_kaggle_run": "hybrid_w0.8_k10",
+    "ppr_run": "ppr_d0.3_seconds",
+    "ppr_weight": 0.8,
+    "rank_constant": 10
+   },
+   "rows": 1260,
+   "bytes": 74508,
+   "sha256": "b0184af8e011c85e2a2aac897433752a128dcea3bd01d73e5961485c88961d20",
+   "distinct_ids": 303,
+   "fallback": {
+    "full_fallback_users": 2,
+    "partial_fallback_users": 0
+   }
+  },
+  "repeat": {
+   "file": "repeat_submission.csv",
+   "configuration": {
+    "variant": {
+     "name": "repeat_decay_8w_pop_rrf",
+     "half_life_days": 56,
+     "rrf_with_popularity": {
+      "repeat_weight": 0.8,
+      "popularity_weight": 0.2,
+      "rank_constant": 10
+     }
+    },
+    "prediction_start_utc": 1595797200
+   },
+   "rows": 1260,
+   "bytes": 75339,
+   "sha256": "bf9333bad90c938c25d35f457e837e3f120dca9fde358d0109447682fc40122f",
+   "distinct_ids": 508,
+   "fallback": {
+    "full_fallback_users": 2,
+    "partial_fallback_users": 0
+   }
+  }
+ },
+ "candidate_pool_size": 3689,
+ "repeat_refit": {
+  "per_airing_rows_rebuilt": 2092708,
+  "equal_to_verified_refit_table": true,
+  "latest_airing_start_utc": 1595796300,
+  "prediction_start_utc": 1595797200,
+  "users_with_any_repeat_candidate": 1258
+ },
+ "parsed_sources": [
+  "dataset11-30.csv",
+  "export_arh_11-20-final.csv",
+  "export_arh_21-30-final.csv",
+  "submission.csv"
+ ],
+ "test_schedule_reopened": false,
+ "protected_candidates_unchanged": {
+  "ppr_submission.csv": true,
+  "popularity_submission.csv": true
+ },
+ "artifact_manifest_sha256": {
+  "refit": "3b0f7feb543b709559a4ac60a1645ab8651cfee8df28a5794531c4a7d906dab3",
+  "test_pool": "0e148656cd60d112dfd0d86523b103f9436117b67ec76604485280183da8ff22"
+ },
+ "test_viewing_behaviour": "no test-period viewing data exists in the supplied files, and none was used",
+ "generated_at_utc": "2026-10-31T22:47:49Z",
+ "code_version": {
+  "git_head": "4b9598b4e670417387aabe3facb7868b6b6143eb",
+  "uncommitted_changes": true,
+  "experiment_code_sha256": "277f1b7c6713c843a27e195b41680a506dbc28741b9d8f865ea32a5ef679dcc5"
+ },
+ "execution": {
+  "seconds": 16.3,
+  "peak_rss_mib": 1358.2
+ }
+}

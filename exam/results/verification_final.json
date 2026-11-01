@@ -1,0 +1,396 @@
+{
+ "passed": 72,
+ "failed": [],
+ "checks": [
+  {
+   "check": "source unchanged: dataset11-30.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_11-20-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_21-30-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_31-42-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: submission.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: preprocess",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: split",
+   "passed": true,
+   "detail": [
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: popularity",
+   "passed": true,
+   "detail": [
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: models",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "test schedule never parsed: hybrid",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: refit",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule parsed only by the availability stage",
+   "passed": true,
+   "detail": [
+    "export_arh_21-30-final.csv",
+    "export_arh_31-42-final.csv"
+   ]
+  },
+  {
+   "check": "candidate stage is current",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "availability stage opened after the refit finished",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "refit unchanged since the test schedule was opened",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "hybrid fold parsed no test schedule",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "only csvio.py names the test schedule",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "hybrid grid matches its lock",
+   "passed": true,
+   "detail": "2b1bf6f1a947033d035ae1404464d0574e7b4460cc379a7e1c386273e18b0bc1"
+  },
+  {
+   "check": "all four hybrids recorded",
+   "passed": true,
+   "detail": [
+    "hybrid_w0.6_k10",
+    "hybrid_w0.6_k60",
+    "hybrid_w0.8_k10",
+    "hybrid_w0.8_k60"
+   ]
+  },
+  {
+   "check": "PPR alone equals the Step 3 result",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "selection follows the locked rule",
+   "passed": true,
+   "detail": "ppr_d0.3_seconds"
+  },
+  {
+   "check": "hybrid lists rederived: hybrid_w0.6_k10",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "hybrid primary MAP@5 rederived: hybrid_w0.6_k10",
+   "passed": true,
+   "detail": 0.25799735449735417
+  },
+  {
+   "check": "hybrid lists rederived: hybrid_w0.6_k60",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "hybrid primary MAP@5 rederived: hybrid_w0.6_k60",
+   "passed": true,
+   "detail": 0.2417328042328038
+  },
+  {
+   "check": "hybrid lists rederived: hybrid_w0.8_k10",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "hybrid primary MAP@5 rederived: hybrid_w0.8_k10",
+   "passed": true,
+   "detail": 0.29417724867724854
+  },
+  {
+   "check": "hybrid lists rederived: hybrid_w0.8_k60",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "hybrid primary MAP@5 rederived: hybrid_w0.8_k60",
+   "passed": true,
+   "detail": 0.2771375661375658
+  },
+  {
+   "check": "fold hybrid MAP@5 rederived",
+   "passed": true,
+   "detail": 0.20586419753086355
+  },
+  {
+   "check": "fold PPR MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold popularity MAP@5 rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "refit: every view read",
+   "passed": true,
+   "detail": 5821987
+  },
+  {
+   "check": "refit: no view stops after week 30",
+   "passed": true,
+   "detail": 1595797198
+  },
+  {
+   "check": "refit: no hold-out rows",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "refit interactions equal the rederivation exactly",
+   "passed": true,
+   "detail": 950305
+  },
+  {
+   "check": "refit popularity counts rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "refit MF factors rederived",
+   "passed": true,
+   "detail": 7.438494264988549e-15
+  },
+  {
+   "check": "test pool rederived exactly",
+   "passed": true,
+   "detail": 3689
+  },
+  {
+   "check": "test pool has no id 0",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "template read independently",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "exactly the required candidate files exist",
+   "passed": true,
+   "detail": [
+    "popularity_submission.csv",
+    "ppr_submission.csv"
+   ]
+  },
+  {
+   "check": "popularity: header and final newline",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: no CR, NaN, exponent or decimal point",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: 1,260 rows",
+   "passed": true,
+   "detail": 1260
+  },
+  {
+   "check": "popularity: every row has a user and five positive ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: exact template user order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: no missing or duplicate users",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: five distinct ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: only test-pool ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity: lists equal the independent recompute",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "popularity: SHA-256 matches the summary",
+   "passed": true,
+   "detail": "73d71295c19c61c3702a3c8e0fae951f27a307ce9b05cd39fd37e9b93e0996e0"
+  },
+  {
+   "check": "ppr: header and final newline",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: no CR, NaN, exponent or decimal point",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: 1,260 rows",
+   "passed": true,
+   "detail": 1260
+  },
+  {
+   "check": "ppr: every row has a user and five positive ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: exact template user order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: no missing or duplicate users",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: five distinct ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: only test-pool ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "ppr: lists equal the independent recompute",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "ppr: SHA-256 matches the summary",
+   "passed": true,
+   "detail": "d5f709351f3a866db1f218b527131658c15dcc2ab90b205ea44c04df2e7d3b77"
+  },
+  {
+   "check": "no raw data or large artifacts tracked or trackable",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "final submission not created",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "no absolute local paths under exam/",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "final submission path is not ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "generated arrays are ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw data is ignored inside exam/",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "nothing is staged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "git diff --check",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "untracked exam files pass whitespace check",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "no large file under exam/",
+   "passed": true,
+   "detail": 52879
+  }
+ ]
+}

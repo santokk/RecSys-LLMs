@@ -1,0 +1,58 @@
+{
+ "validation_selected_strategy": "ppr_d0.3_seconds",
+ "designated_candidate_after_validation": "ppr",
+ "candidates": {
+  "popularity": {
+   "file": "popularity_submission.csv",
+   "configuration": {
+    "definition": "distinct weeks 11-30 users with a watched airing"
+   },
+   "rows": 1260,
+   "bytes": 74889,
+   "sha256": "73d71295c19c61c3702a3c8e0fae951f27a307ce9b05cd39fd37e9b93e0996e0",
+   "distinct_ids": 5,
+   "fallback": {
+    "full_fallback_users": 1260,
+    "partial_fallback_users": 0
+   }
+  },
+  "ppr": {
+   "file": "ppr_submission.csv",
+   "configuration": {
+    "run": "ppr_d0.3_seconds"
+   },
+   "rows": 1260,
+   "bytes": 74950,
+   "sha256": "d5f709351f3a866db1f218b527131658c15dcc2ab90b205ea44c04df2e7d3b77",
+   "distinct_ids": 371,
+   "fallback": {
+    "full_fallback_users": 2,
+    "partial_fallback_users": 0
+   }
+  }
+ },
+ "candidate_pool_policy": "labelled non-zero ids with an airing overlapping weeks 31-42 on a channel with a weeks 11-30 view",
+ "candidate_pool_size": 3689,
+ "row_count": 1260,
+ "source_sha256": {
+  "dataset11-30.csv": "8c9e5f058157041e5c33f13e64dc1625a5177cc6d5e434ba18cd8a69afafb53b",
+  "export_arh_11-20-final.csv": "7888aa00c20db3db23f95000c721eccf2878e5f58bf5383bb25b99f078b1033c",
+  "export_arh_21-30-final.csv": "bdc9fa9850239aaed608bece9cdb200011e690300470fe85b980457d8c0cb2d4",
+  "export_arh_31-42-final.csv": "5cc01f4619bd94886d83744f00bbc15cc5fa23384d297244a7dc2207450c4088",
+  "submission.csv": "d8c209dce3c7c9d815d8e2a6226e1be63052ee7afa7e8ba8b75dc2f703967a02"
+ },
+ "artifact_manifest_sha256": {
+  "refit": "3b0f7feb543b709559a4ac60a1645ab8651cfee8df28a5794531c4a7d906dab3",
+  "test_pool": "0e148656cd60d112dfd0d86523b103f9436117b67ec76604485280183da8ff22"
+ },
+ "test_schedule_parsed_by_refit": false,
+ "test_viewing_behaviour": "no test-period viewing data exists in the supplied files, and none was used",
+ "test_schedule_use": "candidate availability and title/category lookup only",
+ "generated_at_utc": "2026-10-31T22:01:18Z",
+ "code_version": {
+  "git_head": "4b9598b4e670417387aabe3facb7868b6b6143eb",
+  "uncommitted_changes": true,
+  "code_sha256": "25bd6b281dd25aa009c3bee4e794edd7a89e24642ecac767a03657a643345736",
+  "config_sha256": "74569b273328b5669328e986de99eb8806c0a9825e67654da0454c231f8866c8"
+ }
+}

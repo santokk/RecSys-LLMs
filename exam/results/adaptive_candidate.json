@@ -1,0 +1,42 @@
+{
+ "post_kaggle_feedback": true,
+ "exploratory": true,
+ "label": "EXPLORATORY POST-KAGGLE candidate, produced after four Kaggle score pairs were observed",
+ "lock_sha256": "b65be59d2dc821cfce059abec7b8c38b682d8bffd40623bfce902d0891fdf744",
+ "variant": {
+  "name": "adaptive_days",
+  "label": "B",
+  "history": "distinct Kyiv calendar dates of the airing starts of positive labelled training interactions",
+  "lower": 3,
+  "upper": 14,
+  "weights": [
+   0.4,
+   0.6,
+   0.8
+  ]
+ },
+ "file": "adaptive_candidates/history_adaptive_submission.csv",
+ "rows": 1260,
+ "bytes": 74483,
+ "sha256": "334ea1a56901b31e98eb178030f0f0e0b798e97d9a0ad427f9067fcc74e97ace",
+ "candidate_pool_size": 3689,
+ "history_groups": {
+  "cold": 2,
+  "low": 1,
+  "middle": 12,
+  "high": 1245
+ },
+ "fallback": {
+  "full_fallback_users": 2,
+  "partial_fallback_users": 0
+ },
+ "distinct_ids": 290,
+ "parsed_sources": [
+  "dataset11-30.csv",
+  "export_arh_11-20-final.csv",
+  "export_arh_21-30-final.csv",
+  "submission.csv"
+ ],
+ "test_viewing_behaviour": "no test-period viewing data exists in the supplied files, and none was used",
+ "generated_at_utc": "2026-10-31T23:19:27Z"
+}

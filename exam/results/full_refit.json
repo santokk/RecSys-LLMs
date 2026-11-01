@@ -1,0 +1,70 @@
+{
+ "training_window": {
+  "start": "2020-03-09 00:00:00",
+  "end": "2020-07-27 00:00:00"
+ },
+ "hold_out": "none",
+ "schedules_parsed": [
+  "dataset11-30.csv",
+  "export_arh_11-20-final.csv",
+  "export_arh_21-30-final.csv",
+  "submission.csv"
+ ],
+ "view_rows": 5821987,
+ "views_outside_training": 0,
+ "last_view_stop_utc": 1595797198,
+ "training_end_utc": 1595797200,
+ "stop_time_mismatches_after_utc": 0,
+ "airings": 2146199,
+ "labelled_airings": 236851,
+ "user_airing_rows": 3014157,
+ "watched_airing_rows": 2092708,
+ "user_programme_pairs": 950305,
+ "users_with_positive": 4890,
+ "programmes_with_positive": 4276,
+ "cohort_cold_no_positive": 2,
+ "channels_with_training_views": 202,
+ "ppr": {
+  "run": "ppr_d0.3_seconds",
+  "iterations": 10,
+  "final_l1_change": 1.699874859616434e-11,
+  "graph_nodes": 4276,
+  "graph_edges_undirected": 6852472,
+  "zero_degree_nodes": 0,
+  "max_probability_total_error": 7.549516567451064e-15,
+  "users_with_seeds": 1258,
+  "fit_seconds": 1.65
+ },
+ "mf_report_artifact": {
+  "run": "mf_f16_a2_r30_i20",
+  "users": 4890,
+  "programmes": 4276,
+  "final_loss": 2239166.682373214,
+  "used_in_candidates": false,
+  "fit_seconds": 3.42
+ },
+ "popularity_top_5": [
+  [
+   2400480,
+   4521
+  ],
+  [
+   240081,
+   4302
+  ],
+  [
+   6500479,
+   3998
+  ],
+  [
+   2400467,
+   3910
+  ],
+  [
+   2400508,
+   3910
+  ]
+ ],
+ "interaction_build_seconds": 14.83,
+ "refit_manifest_sha256": "3b0f7feb543b709559a4ac60a1645ab8651cfee8df28a5794531c4a7d906dab3"
+}

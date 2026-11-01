@@ -1,0 +1,266 @@
+{
+ "passed": 51,
+ "failed": [],
+ "checks": [
+  {
+   "check": "source unchanged: dataset11-30.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_11-20-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_21-30-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_31-42-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: submission.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "protocol: grids match the lock",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "protocol: every declared run is recorded",
+   "passed": true,
+   "detail": 34
+  },
+  {
+   "check": "selection follows primary MAP@5 only: mf",
+   "passed": true,
+   "detail": "mf_f16_a2_r30_i20"
+  },
+  {
+   "check": "selection follows primary MAP@5 only: ppr",
+   "passed": true,
+   "detail": "ppr_d0.3_seconds"
+  },
+  {
+   "check": "manifest current: preprocess",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: preprocess",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: split",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: split",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: models",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: models",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule never parsed: stability fold",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "only csvio.py names the test schedule",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "model input equals train-side rederivation exactly",
+   "passed": true,
+   "detail": 573750
+  },
+  {
+   "check": "train seconds carry no validation seconds",
+   "passed": true,
+   "detail": 97941
+  },
+  {
+   "check": "every training interaction begins before the boundary",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "cohort order matches template",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "primary target rederived exactly",
+   "passed": true,
+   "detail": 6221
+  },
+  {
+   "check": "targets hold at most five ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "recommendations rederived: popularity",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "five distinct pool ids per user: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "primary MAP@5 rederived: popularity",
+   "passed": true,
+   "detail": 0.17584126984126958
+  },
+  {
+   "check": "non-empty MAP@5 rederived: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "recommendations rederived: mf",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "five distinct pool ids per user: mf",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "primary MAP@5 rederived: mf",
+   "passed": true,
+   "detail": 0.13162698412698384
+  },
+  {
+   "check": "non-empty MAP@5 rederived: mf",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "recommendations rederived: ppr",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "five distinct pool ids per user: ppr",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "primary MAP@5 rederived: ppr",
+   "passed": true,
+   "detail": 0.3003492063492062
+  },
+  {
+   "check": "non-empty MAP@5 rederived: ppr",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "popularity agrees across scripts 03 and 06",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "heavy report user rederived",
+   "passed": true,
+   "detail": 649
+  },
+  {
+   "check": "light report user rederived",
+   "passed": true,
+   "detail": 1
+  },
+  {
+   "check": "stability primary MAP@5 rederived: popularity",
+   "passed": true,
+   "detail": 0.11625661375661357
+  },
+  {
+   "check": "stability primary MAP@5 rederived: mf",
+   "passed": true,
+   "detail": 0.08876190476190479
+  },
+  {
+   "check": "stability primary MAP@5 rederived: ppr",
+   "passed": true,
+   "detail": 0.2176587301587296
+  },
+  {
+   "check": "no absolute local paths under exam/",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "final submission path is not ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "generated arrays are ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw data is ignored inside exam/",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "nothing is staged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "git diff --check",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "untracked exam files pass whitespace check",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "no large file under exam/",
+   "passed": true,
+   "detail": 52879
+  }
+ ]
+}

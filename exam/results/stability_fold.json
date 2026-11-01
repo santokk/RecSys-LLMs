@@ -1,0 +1,147 @@
+{
+ "purpose": "robustness diagnostic, never a tuning target",
+ "train": {
+  "start": "2020-03-09 00:00:00",
+  "end": "2020-07-06 00:00:00"
+ },
+ "validation": {
+  "start": "2020-07-06 00:00:00",
+  "end": "2020-07-27 00:00:00"
+ },
+ "parsed_sources": [
+  "dataset11-30.csv",
+  "export_arh_11-20-final.csv",
+  "export_arh_21-30-final.csv",
+  "submission.csv"
+ ],
+ "fold_size": {
+  "candidate_pool": 1912,
+  "train_user_programme_pairs": 785923,
+  "validation_user_programme_pairs": 237092,
+  "validation_user_airing_rows_all_thresholds": 522359,
+  "cohort_with_nonempty_target": 1237,
+  "cohort_cold_no_train_positive": 3
+ },
+ "results": {
+  "popularity": {
+   "run_id": "popularity",
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1237,
+    "map_at_5_all_users": 0.11625661375661377,
+    "map_at_5_all_users_95ci": [
+     0.10844907407407409,
+     0.12373326719576717
+    ],
+    "map_at_5_nonempty_users": 0.1184182161142549,
+    "recall_at_5_nonempty_users": 0.16561573699811372,
+    "hit_rate_all_users": 0.553968253968254
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.5716507936507936,
+    "recall_at_5_users_with_broad_set": 0.06206642200998084
+   },
+   "concentration": {
+    "distinct_ids_recommended": 5,
+    "catalogue_coverage": 0.002615062761506276,
+    "largest_slot_share": 0.2,
+    "herfindahl_index": 0.20000000000000004,
+    "gini_over_pool": 0.9973849372384938
+   }
+  },
+  "mf": {
+   "run_id": "mf_f16_a2_r30_i20",
+   "fallback": {
+    "full_fallback_users": 3,
+    "partial_fallback_users": 0
+   },
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1237,
+    "map_at_5_all_users": 0.08876190476190476,
+    "map_at_5_all_users_95ci": [
+     0.08207929894179895,
+     0.09627427248677249
+    ],
+    "map_at_5_nonempty_users": 0.0904122877930477,
+    "recall_at_5_nonempty_users": 0.14217192131500944,
+    "hit_rate_all_users": 0.5015873015873016
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.44244179894179886,
+    "recall_at_5_users_with_broad_set": 0.05659155405808016
+   },
+   "concentration": {
+    "distinct_ids_recommended": 201,
+    "catalogue_coverage": 0.1051255230125523,
+    "largest_slot_share": 0.12238095238095238,
+    "herfindahl_index": 0.05396860670194003,
+    "gini_over_pool": 0.9775561200770406
+   },
+   "paired_difference_vs_popularity": {
+    "mean": -0.027494708994708992,
+    "bootstrap_95ci": [
+     -0.03500892857142857,
+     -0.020526388888888886
+    ],
+    "resamples": 1000,
+    "seed": 20261101,
+    "users_better": 266,
+    "users_worse": 388
+   }
+  },
+  "ppr": {
+   "run_id": "ppr_d0.3_seconds",
+   "fallback": {
+    "full_fallback_users": 3,
+    "partial_fallback_users": 0
+   },
+   "graph": {
+    "iterations": 10,
+    "final_l1_change": 1.952905477361376e-11,
+    "graph_nodes": 3907,
+    "graph_edges_undirected": 5523017,
+    "zero_degree_nodes": 0,
+    "max_probability_total_error": 6.661338147750939e-15,
+    "users_with_seeds": 1257
+   },
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1237,
+    "map_at_5_all_users": 0.21765873015873016,
+    "map_at_5_all_users_95ci": [
+     0.20684384920634924,
+     0.2294952380952381
+    ],
+    "map_at_5_nonempty_users": 0.2217057396928052,
+    "recall_at_5_nonempty_users": 0.28348154136351394,
+    "hit_rate_all_users": 0.7341269841269841
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.6229497354497355,
+    "recall_at_5_users_with_broad_set": 0.0685617812352231
+   },
+   "concentration": {
+    "distinct_ids_recommended": 335,
+    "catalogue_coverage": 0.1752092050209205,
+    "largest_slot_share": 0.17412698412698413,
+    "herfindahl_index": 0.056436180398085165,
+    "gini_over_pool": 0.9758582386929667
+   },
+   "paired_difference_vs_popularity": {
+    "mean": 0.1014021164021164,
+    "bootstrap_95ci": [
+     0.09202876984126984,
+     0.11095304232804235
+    ],
+    "resamples": 1000,
+    "seed": 20261101,
+    "users_better": 676,
+    "users_worse": 185
+   }
+  }
+ }
+}

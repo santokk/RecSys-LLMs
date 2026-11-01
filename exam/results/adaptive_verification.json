@@ -1,0 +1,455 @@
+{
+ "post_kaggle_feedback": true,
+ "exploratory": true,
+ "passed": 86,
+ "failed": [],
+ "candidate": {
+  "rows_changed_from_fixed_file": 13,
+  "weight_counts": {
+   "0.4": 3,
+   "0.6": 12,
+   "0.8": 1245
+  }
+ },
+ "checks": [
+  {
+   "check": "source unchanged: dataset11-30.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_11-20-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_21-30-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_31-42-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: submission.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "lock hash is intact",
+   "passed": true,
+   "detail": "b65be59d2dc821cfce059abec7b8c38b682d8bffd40623bfce902d0891fdf744"
+  },
+  {
+   "check": "results belong to this lock and are labelled",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "exactly two locked variants",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "lock predates results",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "every earlier result is unchanged",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "every earlier candidate is unchanged",
+   "passed": true,
+   "detail": 4
+  },
+  {
+   "check": "nothing new in the earlier candidate folder",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "test schedule not parsed by evaluation",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv",
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule not parsed by the stage",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "new code never names the test schedule",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "new code never reads Kaggle scores",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main: fixed fusion MAP@5 rederived",
+   "passed": true,
+   "detail": 0.29417724867724854
+  },
+  {
+   "check": "main adaptive_programmes: history rederived",
+   "passed": true,
+   "detail": 649
+  },
+  {
+   "check": "main adaptive_programmes: weights rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "main adaptive_programmes: primary MAP@5 rederived",
+   "passed": true,
+   "detail": 0.2939285714285713
+  },
+  {
+   "check": "main adaptive_programmes: broad MAP@5 rederived",
+   "passed": true,
+   "detail": 0.7528518518518504
+  },
+  {
+   "check": "main adaptive_programmes: top item by formula, user 720",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: top item by formula, user 391",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: top item by formula, user 4724",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: top item by formula, user 2824",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: top item by formula, user 2483",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_programmes: RRF scores by formula",
+   "passed": true,
+   "detail": 0.0
+  },
+  {
+   "check": "main adaptive_days: history rederived",
+   "passed": true,
+   "detail": 70
+  },
+  {
+   "check": "main adaptive_days: weights rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "main adaptive_days: primary MAP@5 rederived",
+   "passed": true,
+   "detail": 0.2941825396825395
+  },
+  {
+   "check": "main adaptive_days: broad MAP@5 rederived",
+   "passed": true,
+   "detail": 0.7538386243386229
+  },
+  {
+   "check": "main adaptive_days: top item by formula, user 720",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: top item by formula, user 391",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: top item by formula, user 4724",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: top item by formula, user 2824",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: top item by formula, user 2483",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "main adaptive_days: RRF scores by formula",
+   "passed": true,
+   "detail": 0.0
+  },
+  {
+   "check": "fold: fixed fusion MAP@5 rederived",
+   "passed": true,
+   "detail": 0.20586419753086355
+  },
+  {
+   "check": "fold adaptive_programmes: history rederived",
+   "passed": true,
+   "detail": 866
+  },
+  {
+   "check": "fold adaptive_programmes: weights rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "fold adaptive_programmes: primary MAP@5 rederived",
+   "passed": true,
+   "detail": 0.2056472663139323
+  },
+  {
+   "check": "fold adaptive_programmes: broad MAP@5 rederived",
+   "passed": true,
+   "detail": 0.6358298059964708
+  },
+  {
+   "check": "fold adaptive_programmes: top item by formula, user 720",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: top item by formula, user 391",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: top item by formula, user 4787",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: top item by formula, user 2824",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: top item by formula, user 4268",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_programmes: RRF scores by formula",
+   "passed": true,
+   "detail": 0.0
+  },
+  {
+   "check": "fold adaptive_days: history rederived",
+   "passed": true,
+   "detail": 118
+  },
+  {
+   "check": "fold adaptive_days: weights rederived",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: recommendations rederived",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "fold adaptive_days: primary MAP@5 rederived",
+   "passed": true,
+   "detail": 0.2059329805996466
+  },
+  {
+   "check": "fold adaptive_days: broad MAP@5 rederived",
+   "passed": true,
+   "detail": 0.6367768959435606
+  },
+  {
+   "check": "fold adaptive_days: top item by formula, user 720",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: top item by formula, user 391",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: top item by formula, user 4787",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: top item by formula, user 4724",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: top item by formula, user 2824",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "fold adaptive_days: RRF scores by formula",
+   "passed": true,
+   "detail": 0.0
+  },
+  {
+   "check": "acceptance and selection rederived",
+   "passed": true,
+   "detail": "adaptive_days"
+  },
+  {
+   "check": "final: no view after week 30, no hold-out",
+   "passed": true,
+   "detail": 1595797198
+  },
+  {
+   "check": "final: history input equals the verified refit",
+   "passed": true,
+   "detail": 950305
+  },
+  {
+   "check": "final: test pool rederived",
+   "passed": true,
+   "detail": 3689
+  },
+  {
+   "check": "template has 1,260 unique users",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: header and exactly one final newline",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: no CR, NaN, exponent or decimal point",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: 1,260 rows",
+   "passed": true,
+   "detail": 1260
+  },
+  {
+   "check": "history_adaptive_submission.csv: exactly two cells per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: exact template user order",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: five positive integer ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: five distinct ids per row",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: only test-pool ids",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "history_adaptive_submission.csv: all rows equal the independent recompute",
+   "passed": true,
+   "detail": "1260/1260"
+  },
+  {
+   "check": "candidate SHA-256 and size match the summary",
+   "passed": true,
+   "detail": "334ea1a56901b31e98eb178030f0f0e0b798e97d9a0ad427f9067fcc74e97ace"
+  },
+  {
+   "check": "candidate differs from fixed fusion only for users with weight below 0.8",
+   "passed": true,
+   "detail": 13
+  },
+  {
+   "check": "no absolute local paths under exam/",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "final submission path is not ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "generated arrays are ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw data is ignored inside exam/",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "nothing is staged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "git diff --check",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "untracked exam files pass whitespace check",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "no large file under exam/",
+   "passed": true,
+   "detail": 52879
+  }
+ ],
+ "execution": {
+  "seconds": 66.9,
+  "peak_rss_mib": 2552.0
+ }
+}

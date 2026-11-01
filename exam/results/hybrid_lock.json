@@ -1,0 +1,28 @@
+{
+ "formula": "score(i) = w / (K + rank_ppr(i)) + (1 - w) / (K + rank_popularity(i))",
+ "grid": {
+  "method": "reciprocal_rank_fusion",
+  "ppr_run": "ppr_d0.3_seconds",
+  "ppr_weight": [
+   0.6,
+   0.8
+  ],
+  "rank_constant": [
+   10,
+   60
+  ],
+  "equal_score_tolerance": 1e-12
+ },
+ "grid_sha256": "2b1bf6f1a947033d035ae1404464d0574e7b4460cc379a7e1c386273e18b0bc1",
+ "frozen_components": {
+  "ppr": "ppr_d0.3_seconds",
+  "popularity": "popularity"
+ },
+ "rules": [
+  "ranks start at 1 and every candidate receives one",
+  "component and fused ties break by ascending numeric tv_show_id",
+  "a seeded user's unreachable candidates rank after reachable ones by ascending id",
+  "a user with no training positive takes the common popularity fallback"
+ ],
+ "selection_rule": "highest main-validation primary MAP@5 among PPR alone and the four hybrids; a hybrid within 1e-12 of PPR loses to the simpler PPR strategy; the stability fold cannot override this"
+}

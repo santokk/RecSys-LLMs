@@ -1,0 +1,160 @@
+{
+ "view_rows": 5821987,
+ "view_segments_after_window_clipping": 5822994,
+ "views_cut_at_window_boundary": 1007,
+ "views_outside_both_windows": 0,
+ "users_in_view_log": 4914,
+ "first_view_start_utc": 1583704802,
+ "last_view_stop_utc": 1595797198,
+ "window_bounds_utc": {
+  "train": [
+   1583704800,
+   1589749200
+  ],
+  "validation": [
+   1589749200,
+   1595797200
+  ]
+ },
+ "stop_time_disagrees_with_start_plus_duration_after_utc": 0,
+ "wall_clock_special_cases": {
+  "schedule": {
+   "nonexistent": 0,
+   "ambiguous": 0
+  },
+  "views": {
+   "nonexistent": 0,
+   "ambiguous": 0
+  }
+ },
+ "schedule": {
+  "rows_kept_for_fitting": 2146200,
+  "rows_starting_at_or_after_validation_end_dropped": 2429,
+  "airings_after_resolution": 2146199,
+  "labelled_airings": 236851,
+  "scheduled_channels": 404,
+  "zero_duration_dropped": 1,
+  "same_start_dropped": 0,
+  "same_start_with_different_ids": 0,
+  "overlaps_truncated": 5,
+  "overlap_seconds_removed": 42600,
+  "overlaps_touching_label": 1,
+  "overlaps_between_two_labelled_ids": 0,
+  "overlap_detail": [
+   {
+    "channel": 282,
+    "earlier_id": 10003055,
+    "later_id": 0,
+    "later_start_utc": 1585537200,
+    "seconds_removed": 1800
+   },
+   {
+    "channel": 487,
+    "earlier_id": 0,
+    "later_id": 0,
+    "later_start_utc": 1589750400,
+    "seconds_removed": 2400
+   },
+   {
+    "channel": 667,
+    "earlier_id": 0,
+    "later_id": 0,
+    "later_start_utc": 1595214000,
+    "seconds_removed": 18000
+   },
+   {
+    "channel": 724,
+    "earlier_id": 0,
+    "later_id": 0,
+    "later_start_utc": 1595214000,
+    "seconds_removed": 18000
+   },
+   {
+    "channel": 1020,
+    "earlier_id": 0,
+    "later_id": 0,
+    "later_start_utc": 1584332400,
+    "seconds_removed": 2400
+   }
+  ],
+  "gaps_between_airings": 5,
+  "gap_seconds": 4231500
+ },
+ "views_by_class": {
+  "train": {
+   "channel_not_in_schedule": {
+    "segments": 74160,
+    "segment_seconds": 66084029
+   },
+   "schedule_hole": {
+    "segments": 295556,
+    "segment_seconds": 384134685
+   },
+   "unlabelled_only": {
+    "segments": 1677639,
+    "segment_seconds": 1543886832
+   },
+   "one_labelled_id": {
+    "segments": 1582544,
+    "segment_seconds": 1601354584
+   },
+   "multiple_labelled_ids": {
+    "segments": 315274,
+    "segment_seconds": 1329243703
+   }
+  },
+  "validation": {
+   "channel_not_in_schedule": {
+    "segments": 39430,
+    "segment_seconds": 50228039
+   },
+   "schedule_hole": {
+    "segments": 4178,
+    "segment_seconds": 10877870
+   },
+   "unlabelled_only": {
+    "segments": 766922,
+    "segment_seconds": 1043697112
+   },
+   "one_labelled_id": {
+    "segments": 859326,
+    "segment_seconds": 956454732
+   },
+   "multiple_labelled_ids": {
+    "segments": 207965,
+    "segment_seconds": 1633253638
+   }
+  }
+ },
+ "seconds": {
+  "train": {
+   "viewed": 4924703833,
+   "covered_by_any_airing": 4474292736,
+   "covered_by_labelled_airing": 2451904652
+  },
+  "validation": {
+   "viewed": 3694511391,
+   "covered_by_any_airing": 3633405482,
+   "covered_by_labelled_airing": 2123324853
+  }
+ },
+ "users_with_views": {
+  "train": 4876,
+  "validation": 4820
+ },
+ "channels_with_views": {
+  "train": 199,
+  "validation": 198
+ },
+ "aggregation": {
+  "labelled_overlap_pairs": 3848465,
+  "user_airing_window_rows": 3014908,
+  "rows_built_from_multiple_fragments": 465754,
+  "rows_where_cap_applied": 23998,
+  "rows_where_union_below_capped_sum": 25281,
+  "primary_positives": 2093353,
+  "primary_positives_lost_under_union": 231,
+  "primary_positives_touching_view_at_least_long_seconds": 93135,
+  "long_view_seconds": 21600
+ }
+}

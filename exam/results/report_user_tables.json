@@ -1,0 +1,332 @@
+{
+ "heavy": {
+  "user_id": "13571199046623737884",
+  "training": {
+   "user_id": "13571199046623737884",
+   "distinct_positive_training_programmes": 649,
+   "watched_training_airings": 2046,
+   "watched_training_seconds": 5432527
+  },
+  "target_size": 5,
+  "methods": {
+   "popularity": {
+    "run_id": "popularity",
+    "user_ap_at_5": 0.6,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 2400480,
+      "title": "ТСН.",
+      "category": "Инфо",
+      "score": 4362.0,
+      "source": "popularity",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 240081,
+      "title": "Факты.",
+      "category": "Инфо",
+      "score": 4073.0,
+      "source": "popularity",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 6500479,
+      "title": "'Мир наизнанку'.",
+      "category": "Познавательное",
+      "score": 3610.0,
+      "source": "popularity",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 2400508,
+      "title": "Сегодня.",
+      "category": "Инфо",
+      "score": 3608.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 2400467,
+      "title": "'Викна-Новости'.",
+      "category": "Инфо",
+      "score": 3538.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     }
+    ]
+   },
+   "mf": {
+    "run_id": "mf_f16_a2_r30_i20",
+    "user_ap_at_5": 0.0,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 1000589,
+      "title": "Т/с 'Отчаянные домохозяйки', 1 сезон, 10 с. 'Возвращайся'.",
+      "category": "Сериалы",
+      "score": 1.3468691975413638,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 12002856,
+      "title": "М/с 'Элвиннн!!! и бурундуки'.",
+      "category": "Детям",
+      "score": 1.3167283022657292,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 90049646,
+      "title": "Х/ф 'Зеленая миля'.",
+      "category": "Фильмы",
+      "score": 1.3078045781129968,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 200403,
+      "title": "'Облом.UA'.",
+      "category": "Развлечения",
+      "score": 1.291597432433289,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 12002355,
+      "title": "М/с 'Кунг-фу панда: Удивительные легенды'.",
+      "category": "Детям",
+      "score": 1.2830579318441568,
+      "source": "mf",
+      "in_validation_top5_target": false
+     }
+    ]
+   },
+   "ppr": {
+    "run_id": "ppr_d0.3_seconds",
+    "user_ap_at_5": 0.4,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 2400480,
+      "title": "ТСН.",
+      "category": "Инфо",
+      "score": 0.036617719433867865,
+      "source": "ppr",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 240081,
+      "title": "Факты.",
+      "category": "Инфо",
+      "score": 0.022848694179052755,
+      "source": "ppr",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 2400508,
+      "title": "Сегодня.",
+      "category": "Инфо",
+      "score": 0.021194638625843202,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 10003159,
+      "title": "Т/с 'Ничто не случается дважды', 10 с.",
+      "category": "Сериалы",
+      "score": 0.017832327010248998,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 400335,
+      "title": "'Хата на тата'.",
+      "category": "Развлечения",
+      "score": 0.01782218142185539,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     }
+    ]
+   }
+  }
+ },
+ "light": {
+  "user_id": "8150816946177670084",
+  "training": {
+   "user_id": "8150816946177670084",
+   "distinct_positive_training_programmes": 1,
+   "watched_training_airings": 1,
+   "watched_training_seconds": 2753
+  },
+  "target_size": 5,
+  "methods": {
+   "popularity": {
+    "run_id": "popularity",
+    "user_ap_at_5": 0.1,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 2400480,
+      "title": "ТСН.",
+      "category": "Инфо",
+      "score": 4362.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 240081,
+      "title": "Факты.",
+      "category": "Инфо",
+      "score": 4073.0,
+      "source": "popularity",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 6500479,
+      "title": "'Мир наизнанку'.",
+      "category": "Познавательное",
+      "score": 3610.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 2400508,
+      "title": "Сегодня.",
+      "category": "Инфо",
+      "score": 3608.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 2400467,
+      "title": "'Викна-Новости'.",
+      "category": "Инфо",
+      "score": 3538.0,
+      "source": "popularity",
+      "in_validation_top5_target": false
+     }
+    ]
+   },
+   "mf": {
+    "run_id": "mf_f16_a2_r30_i20",
+    "user_ap_at_5": 0.0,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 90051380,
+      "title": "Х/ф 'Черный дождь'.",
+      "category": "Фильмы",
+      "score": 0.03722592628509079,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 90075067,
+      "title": "Х/ф 'Срочная доставка'.",
+      "category": "Фильмы",
+      "score": 0.03459870986445563,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 90060765,
+      "title": "Х/ф 'Нью-йоркское такси'.",
+      "category": "Фильмы",
+      "score": 0.03174996272807725,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 90057208,
+      "title": "Х/ф 'Каратель'.",
+      "category": "Фильмы",
+      "score": 0.02988163264289949,
+      "source": "mf",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 90055201,
+      "title": "Х/ф 'Интимный словарь', 1 ч.",
+      "category": "Фильмы",
+      "score": 0.02913527733845384,
+      "source": "mf",
+      "in_validation_top5_target": false
+     }
+    ]
+   },
+   "ppr": {
+    "run_id": "ppr_d0.3_seconds",
+    "user_ap_at_5": 0.06666666666666667,
+    "top_5": [
+     {
+      "rank": 1,
+      "tv_show_id": 90053098,
+      "title": "Х/ф 'Мужество в бою'.",
+      "category": "Фильмы",
+      "score": 0.7000174905132811,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 2,
+      "tv_show_id": 2400480,
+      "title": "ТСН.",
+      "category": "Инфо",
+      "score": 0.01678200783604545,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 3,
+      "tv_show_id": 240081,
+      "title": "Факты.",
+      "category": "Инфо",
+      "score": 0.012418023275937896,
+      "source": "ppr",
+      "in_validation_top5_target": true
+     },
+     {
+      "rank": 4,
+      "tv_show_id": 6500479,
+      "title": "'Мир наизнанку'.",
+      "category": "Познавательное",
+      "score": 0.0055680684472491125,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     },
+     {
+      "rank": 5,
+      "tv_show_id": 2400508,
+      "title": "Сегодня.",
+      "category": "Инфо",
+      "score": 0.0055039614214403895,
+      "source": "ppr",
+      "in_validation_top5_target": false
+     }
+    ]
+   }
+  }
+ }
+}

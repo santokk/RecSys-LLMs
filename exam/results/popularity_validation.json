@@ -1,0 +1,281 @@
+{
+ "fit_window": "weeks 11-20 only",
+ "popularity_definition": "distinct training users with a watched airing; ties by ascending numeric id",
+ "repeat_policy": "previously watched programmes may be recommended",
+ "primary_target": "each user's top-5 watched pool ids by summed capped seconds, ties by ascending id",
+ "selection_metric": "primary_top5_preference.map_at_5_all_users, empty targets score zero",
+ "candidate_pool_size": 3519,
+ "primary_top5_preference": {
+  "users_evaluated": 1260,
+  "users_with_nonempty_target": 1246,
+  "map_at_5_all_users": 0.17584126984126985,
+  "map_at_5_all_users_95ci": [
+   0.16667896825396825,
+   0.18590489417989417
+  ],
+  "map_at_5_nonempty_users": 0.17781701444622794,
+  "recall_at_5_nonempty_users": 0.23622257891920817,
+  "hit_rate_all_users": 0.6880952380952381
+ },
+ "secondary_broad_watched_diagnostic": {
+  "not_for_selection": true,
+  "map_at_5_all_users": 0.7293994708994709,
+  "recall_at_5_users_with_broad_set": 0.042674548359553886,
+  "hit_rate_by_rank": [
+   0.861904761904762,
+   0.8166666666666667,
+   0.7507936507936508,
+   0.7055555555555556,
+   0.7142857142857143
+  ]
+ },
+ "concentration": {
+  "distinct_ids_recommended": 5,
+  "catalogue_coverage": 0.0014208581983518045,
+  "largest_slot_share": 0.2,
+  "herfindahl_index": 0.20000000000000004,
+  "gini_over_pool": 0.9985791418016482
+ },
+ "top_5": [
+  {
+   "rank": 1,
+   "tv_show_id": 2400480,
+   "training_users": 4362,
+   "title": "ТСН.",
+   "category": "Инфо"
+  },
+  {
+   "rank": 2,
+   "tv_show_id": 240081,
+   "training_users": 4073,
+   "title": "Факты.",
+   "category": "Инфо"
+  },
+  {
+   "rank": 3,
+   "tv_show_id": 6500479,
+   "training_users": 3610,
+   "title": "'Мир наизнанку'.",
+   "category": "Познавательное"
+  },
+  {
+   "rank": 4,
+   "tv_show_id": 2400508,
+   "training_users": 3608,
+   "title": "Сегодня.",
+   "category": "Инфо"
+  },
+  {
+   "rank": 5,
+   "tv_show_id": 2400467,
+   "training_users": 3538,
+   "title": "'Викна-Новости'.",
+   "category": "Инфо"
+  }
+ ],
+ "top_20_scores": [
+  [
+   2400480,
+   4362
+  ],
+  [
+   240081,
+   4073
+  ],
+  [
+   6500479,
+   3610
+  ],
+  [
+   2400508,
+   3608
+  ],
+  [
+   2400467,
+   3538
+  ],
+  [
+   10002514,
+   3033
+  ],
+  [
+   200352,
+   2915
+  ],
+  [
+   6700482,
+   2874
+  ],
+  [
+   20088,
+   2696
+  ],
+  [
+   700389,
+   2672
+  ],
+  [
+   400335,
+   2669
+  ],
+  [
+   200432,
+   2599
+  ],
+  [
+   200344,
+   2545
+  ],
+  [
+   2500430,
+   2506
+  ],
+  [
+   400361,
+   2456
+  ],
+  [
+   700369,
+   2406
+  ],
+  [
+   500315,
+   2401
+  ],
+  [
+   2500413,
+   2348
+  ],
+  [
+   200506,
+   2327
+  ],
+  [
+   500331,
+   2323
+  ]
+ ],
+ "pool_items_with_zero_popularity": 1619,
+ "threshold_sensitivity": {
+  "60": {
+   "top_5_ids": [
+    2400480,
+    240081,
+    2400508,
+    6500479,
+    2400467
+   ],
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1246,
+    "map_at_5_all_users": 0.1766878306878307,
+    "map_at_5_all_users_95ci": [
+     0.1670835978835979,
+     0.18662718253968255
+    ],
+    "map_at_5_nonempty_users": 0.17867308721241307,
+    "recall_at_5_nonempty_users": 0.23996789727126805,
+    "hit_rate_all_users": 0.692063492063492
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.7947830687830688,
+    "recall_at_5_users_with_broad_set": 0.03282197510592934,
+    "hit_rate_by_rank": [
+     0.9031746031746032,
+     0.8555555555555555,
+     0.773015873015873,
+     0.8214285714285714,
+     0.7817460317460317
+    ]
+   },
+   "concentration": {
+    "distinct_ids_recommended": 5,
+    "catalogue_coverage": 0.0014208581983518045,
+    "largest_slot_share": 0.2,
+    "herfindahl_index": 0.20000000000000004,
+    "gini_over_pool": 0.9985791418016482
+   }
+  },
+  "300": {
+   "top_5_ids": [
+    2400480,
+    240081,
+    6500479,
+    2400508,
+    2400467
+   ],
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1246,
+    "map_at_5_all_users": 0.17584126984126985,
+    "map_at_5_all_users_95ci": [
+     0.16667896825396825,
+     0.18590489417989417
+    ],
+    "map_at_5_nonempty_users": 0.17781701444622794,
+    "recall_at_5_nonempty_users": 0.23622257891920817,
+    "hit_rate_all_users": 0.6880952380952381
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.7293994708994709,
+    "recall_at_5_users_with_broad_set": 0.042674548359553886,
+    "hit_rate_by_rank": [
+     0.861904761904762,
+     0.8166666666666667,
+     0.7507936507936508,
+     0.7055555555555556,
+     0.7142857142857143
+    ]
+   },
+   "concentration": {
+    "distinct_ids_recommended": 5,
+    "catalogue_coverage": 0.0014208581983518045,
+    "largest_slot_share": 0.2,
+    "herfindahl_index": 0.20000000000000004,
+    "gini_over_pool": 0.9985791418016482
+   }
+  },
+  "600": {
+   "top_5_ids": [
+    2400480,
+    240081,
+    6500479,
+    2400508,
+    2400467
+   ],
+   "primary_top5_preference": {
+    "users_evaluated": 1260,
+    "users_with_nonempty_target": 1246,
+    "map_at_5_all_users": 0.17204232804232802,
+    "map_at_5_all_users_95ci": [
+     0.162642791005291,
+     0.18170952380952382
+    ],
+    "map_at_5_nonempty_users": 0.17397538790797215,
+    "recall_at_5_nonempty_users": 0.2305778491171749,
+    "hit_rate_all_users": 0.6817460317460318
+   },
+   "secondary_broad_watched_diagnostic": {
+    "not_for_selection": true,
+    "map_at_5_all_users": 0.6849126984126984,
+    "recall_at_5_users_with_broad_set": 0.04883748131853221,
+    "hit_rate_by_rank": [
+     0.8341269841269842,
+     0.7896825396825397,
+     0.703968253968254,
+     0.653968253968254,
+     0.665079365079365
+    ]
+   },
+   "concentration": {
+    "distinct_ids_recommended": 5,
+    "catalogue_coverage": 0.0014208581983518045,
+    "largest_slot_share": 0.2,
+    "herfindahl_index": 0.20000000000000004,
+    "gini_over_pool": 0.9985791418016482
+   }
+  }
+ }
+}

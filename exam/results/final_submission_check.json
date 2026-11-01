@@ -1,0 +1,19 @@
+{
+ "file": "exam/submission/final_submission.csv",
+ "source_candidate": "adaptive_candidates/history_adaptive_submission.csv",
+ "sha256": "334ea1a56901b31e98eb178030f0f0e0b798e97d9a0ad427f9067fcc74e97ace",
+ "bytes": 74483,
+ "post_kaggle_choice": true,
+ "checks": {
+  "sha256_equals_expected": true,
+  "bytes_equal_source_candidate": true,
+  "header_exact": true,
+  "exactly_one_final_newline": true,
+  "rows_1260": true,
+  "every_row_matches_schema": true,
+  "exact_template_user_order": true,
+  "unique_users_1260": true,
+  "five_distinct_ids_per_row": true,
+  "all_ids_in_test_pool": true
+ }
+}

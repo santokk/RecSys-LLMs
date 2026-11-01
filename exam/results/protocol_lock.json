@@ -1,0 +1,70 @@
+{
+ "primary_target": {
+  "start_from": "validation user-programme pairs satisfying overlap >= min(300 seconds, 0.5 * airing duration)",
+  "restrict_to": "the common validation candidate pool",
+  "rank_by": "summed capped watched seconds, descending",
+  "tie_break": "ascending numeric tv_show_id",
+  "keep": "at most five distinct ids",
+  "empty_target": "AP@5 = 0",
+  "basis": "competition wording '5 most preferred' and its five-id submission format"
+ },
+ "selection_metric": "MAP@5 across all 1,260 users, empty targets scoring zero",
+ "selection_tie_break": "first configuration in declared grid order",
+ "grids": {
+  "strength_scale_seconds": 300,
+  "mf": {
+   "factors": [
+    16,
+    32,
+    64
+   ],
+   "confidence_alpha": [
+    2,
+    20
+   ],
+   "regularization": [
+    1,
+    30
+   ],
+   "iteration_checkpoints": [
+    10,
+    20
+   ],
+   "init_std": 0.1
+  },
+  "ppr": {
+   "link_probability": [
+    0.3,
+    0.6,
+    0.85
+   ],
+   "interaction_weighting": [
+    "binary",
+    "log_seconds",
+    "seconds"
+   ],
+   "tolerance": 1e-10,
+   "max_iterations": 500
+  }
+ },
+ "grids_sha256": "a6154d31c752166748b6f3200a3130652441358bba7106784642aa0d96429f64",
+ "report_users": {
+  "rule": {
+   "heavy": "cohort user with the most distinct positive training programmes",
+   "light": "cohort user with the fewest, but at least one, distinct positive training programmes",
+   "tie_break": "numerically ascending user_id"
+  },
+  "heavy": {
+   "user_id": "13571199046623737884",
+   "distinct_positive_training_programmes": 649,
+   "watched_training_airings": 2046,
+   "watched_training_seconds": 5432527
+  },
+  "light": {
+   "user_id": "8150816946177670084",
+   "distinct_positive_training_programmes": 1,
+   "watched_training_airings": 1,
+   "watched_training_seconds": 2753
+  }
+ }
+}

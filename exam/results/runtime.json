@@ -1,0 +1,76 @@
+{
+ "environment": {
+  "python": "3.13.9",
+  "numpy": "2.5.3",
+  "platform": "Darwin arm64"
+ },
+ "01_build_interactions": {
+  "seconds": 14.9,
+  "peak_rss_mib": 1294.3,
+  "artifact_bytes": 207968810
+ },
+ "02_build_split": {
+  "seconds": 2.3,
+  "peak_rss_mib": 601.2
+ },
+ "03_popularity_baseline": {
+  "seconds": 2.7,
+  "peak_rss_mib": 211.2
+ },
+ "04_verify_artifacts": {
+  "seconds": 17.5,
+  "peak_rss_mib": 1610.8,
+  "checks": 62,
+  "failed": 0
+ },
+ "05_lock_protocol": {
+  "seconds": 0.4,
+  "peak_rss_mib": 86.5
+ },
+ "06_run_models": {
+  "seconds": 84.2,
+  "peak_rss_mib": 147.2,
+  "runs": 34
+ },
+ "07_stability_fold": {
+  "seconds": 20.3,
+  "peak_rss_mib": 1558.0
+ },
+ "08_report_tables": {
+  "seconds": 1.9,
+  "peak_rss_mib": 48.5
+ },
+ "09_verify_models": {
+  "seconds": 50.4,
+  "peak_rss_mib": 2668.7,
+  "checks": 51,
+  "failed": 0
+ },
+ "10_lock_hybrid": {
+  "seconds": 0.0,
+  "peak_rss_mib": 31.5
+ },
+ "11_evaluate_hybrid": {
+  "seconds": 21.5,
+  "peak_rss_mib": 1437.9
+ },
+ "12_full_refit": {
+  "seconds": 20.6,
+  "peak_rss_mib": 1698.9,
+  "artifact_bytes": 71170436
+ },
+ "13_test_availability": {
+  "seconds": 2.4,
+  "peak_rss_mib": 122.0
+ },
+ "14_make_candidates": {
+  "seconds": 0.7,
+  "peak_rss_mib": 158.6
+ },
+ "15_verify_final": {
+  "seconds": 91.9,
+  "peak_rss_mib": 2667.0,
+  "checks": 72,
+  "failed": 0
+ }
+}

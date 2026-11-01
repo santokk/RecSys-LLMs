@@ -1,0 +1,331 @@
+{
+ "passed": 62,
+ "failed": [],
+ "checks": [
+  {
+   "check": "source unchanged: dataset11-30.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_11-20-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_21-30-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: export_arh_31-42-final.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "source unchanged: submission.csv",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: preprocess",
+   "passed": true,
+   "detail": [
+    "dataset11-30.csv",
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: preprocess",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: split",
+   "passed": true,
+   "detail": [
+    "submission.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: split",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "manifest current: popularity",
+   "passed": true,
+   "detail": [
+    "export_arh_11-20-final.csv",
+    "export_arh_21-30-final.csv"
+   ]
+  },
+  {
+   "check": "test schedule never parsed: popularity",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "only csvio.py names the test schedule",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "airings: equal column lengths",
+   "passed": true,
+   "detail": 2146199
+  },
+  {
+   "check": "airings: sorted unique (channel, start)",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "airings: positive length",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "airings: disjoint per channel",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "airings: none starts at or after validation end",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: equal column lengths",
+   "passed": true,
+   "detail": 3014908
+  },
+  {
+   "check": "interactions: unique (user, airing, window)",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: every airing has an id",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: capped <= airing duration",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: 0 < capped <= sum",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: union <= sum and <= airing",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "interactions: window is 0 or 1",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "tables_60: no id 0",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "tables_300: no id 0",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "tables_600: no id 0",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "pool: sorted unique non-zero ids",
+   "passed": true,
+   "detail": 3519
+  },
+  {
+   "check": "cohort: 1,260 distinct users",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw view log: row count",
+   "passed": true,
+   "detail": 5821987
+  },
+  {
+   "check": "raw view log: no view stops after week 30",
+   "passed": true,
+   "detail": 1595797198
+  },
+  {
+   "check": "raw view log: no view starts in the test window",
+   "passed": true,
+   "detail": 1595797122
+  },
+  {
+   "check": "rederived user-airing-window rows",
+   "passed": true,
+   "detail": 3014908
+  },
+  {
+   "check": "rederived capped seconds",
+   "passed": true,
+   "detail": 4512947787
+  },
+  {
+   "check": "rederived watched rows 60s train",
+   "passed": true,
+   "detail": 1773578
+  },
+  {
+   "check": "rederived user-programme pairs 60s train",
+   "passed": true,
+   "detail": 842249
+  },
+  {
+   "check": "rederived watched rows 60s validation",
+   "passed": true,
+   "detail": 1165293
+  },
+  {
+   "check": "rederived user-programme pairs 60s validation",
+   "passed": true,
+   "detail": 650295
+  },
+  {
+   "check": "rederived watched rows 300s train",
+   "passed": true,
+   "detail": 1233493
+  },
+  {
+   "check": "rederived user-programme pairs 300s train",
+   "passed": true,
+   "detail": 573750
+  },
+  {
+   "check": "rederived watched rows 300s validation",
+   "passed": true,
+   "detail": 859860
+  },
+  {
+   "check": "rederived user-programme pairs 300s validation",
+   "passed": true,
+   "detail": 474489
+  },
+  {
+   "check": "rederived watched rows 600s train",
+   "passed": true,
+   "detail": 1002839
+  },
+  {
+   "check": "rederived user-programme pairs 600s train",
+   "passed": true,
+   "detail": 467356
+  },
+  {
+   "check": "rederived watched rows 600s validation",
+   "passed": true,
+   "detail": 729610
+  },
+  {
+   "check": "rederived user-programme pairs 600s validation",
+   "passed": true,
+   "detail": 403879
+  },
+  {
+   "check": "rederived candidate pool",
+   "passed": true,
+   "detail": 3519
+  },
+  {
+   "check": "rederived popularity scores",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "rederived popularity order",
+   "passed": true,
+   "detail": [
+    2400480,
+    240081,
+    6500479,
+    2400508,
+    2400467
+   ]
+  },
+  {
+   "check": "user index matches artifact",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "rederived primary MAP@5 all users",
+   "passed": true,
+   "detail": 0.17584126984126958
+  },
+  {
+   "check": "rederived primary MAP@5 non-empty users",
+   "passed": true,
+   "detail": 0.17781701444622766
+  },
+  {
+   "check": "rederived non-empty targets",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "rederived secondary broad MAP@5",
+   "passed": true,
+   "detail": 0.7293994708994701
+  },
+  {
+   "check": "no absolute local paths under exam/",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "final submission path is not ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "generated arrays are ignored",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "raw data is ignored inside exam/",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "nothing is staged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "git diff --check",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "check": "untracked exam files pass whitespace check",
+   "passed": true,
+   "detail": []
+  },
+  {
+   "check": "no large file under exam/",
+   "passed": true,
+   "detail": 52879
+  }
+ ]
+}
