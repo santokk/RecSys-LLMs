@@ -1,3 +1,14 @@
 # HW4: local-only artifacts (NOT part of the course deliverables)
 experiments/
 week4/backup/
+
+# Exam: generated caches and large artifacts (kept outside Git)
+__pycache__/
+*.py[cod]
+exam/.cache/
+exam/artifacts/
+exam/**/*.npz
+exam/**/*.npy
+# Exam: competition raw data must never enter the repository
+exam/**/dataset11-30.csv
+exam/**/export_arh_*.csv
